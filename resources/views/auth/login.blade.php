@@ -28,7 +28,6 @@
 
     <!-- App Capsule -->
     <div id="appCapsule" class="pt-0">
-
         <div class="login-form mt-1">
             <div class="section">
                 <img src="{{ asset('assets/img/login_vector.jpg') }}" alt="image" class="form-image">
@@ -61,10 +60,12 @@
                     </div>
 
                     <div class="form-links mt-2">
-                        <div>
+                        {{-- <div>
                             <a href="{{ url('/register') }}">Register Now</a>
+                        </div> --}}
+                        <div>
+                            <a href="{{ route('password.request') }}" class="text-muted">Forgot Password?</a>
                         </div>
-                        <div><a href="{{ route('password.request') }}" class="text-muted">Forgot Password?</a></div>
                     </div>
 
                     <div class="form-button-group">
