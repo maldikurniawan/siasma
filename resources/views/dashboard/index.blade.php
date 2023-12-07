@@ -28,6 +28,8 @@
     </div>
     <!-- * loader -->
 
+    @yield('header')
+
     <!-- App Capsule -->
     <div id="appCapsule">
         @yield('content')
@@ -54,10 +56,13 @@
     <script src="https://cdn.amcharts.com/lib/4/core.js"></script>
     <script src="https://cdn.amcharts.com/lib/4/charts.js"></script>
     <script src="https://cdn.amcharts.com/lib/4/themes/animated.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/webcamjs/1.0.26/webcam.min.js"></script>
     <!-- Base Js File -->
     <script src="{{ asset('assets/js/base.js') }}"></script>
     {{-- Keterangan --}}
     <script src="{{ asset('assets/js/keterangan.js') }}"></script>
+
+    @stack('myscript')
 
 </body>
 
