@@ -26,6 +26,7 @@ Route::middleware(['guest'])->group(function () {
 Route::get('dashboard', [DashboardController::class, 'index']);
 Route::get('home', [HomeController::class, 'index']);
 Route::get('presensi/create', [PresensiController::class, 'create']);
+Route::post('presensi/store', [PresensiController::class, 'store']);
 
 Auth::routes();
 
