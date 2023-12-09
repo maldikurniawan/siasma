@@ -12,19 +12,19 @@ class PresensiController extends Controller
     public function create()
     {
         $hariini = date("Y-m-d");
-        $id = Auth::guard()->user()->id;
-        $cek = DB::table('presensi')->where('tgl_presensi', $hariini)->where('id', $id)->count();
+        $npm = Auth::guard()->user()->npm;
+        $cek = DB::table('presensi')->where('tgl_presensi', $hariini)->where('npm', $npm)->count();
         return view('presensi.create', compact('cek'));
     }
 
     public function store(Request $request)
     {
-        $id = Auth::guard()->user()->id;
+        $npm = Auth::guard()->user()->npm;
         $tgl_presensi = date("Y-m-d");
         $jam = date("H:i:s");
         // Lokasi Kampus
-        $latitudekampus = -5.387261931715078;
-        $longitudekampus = 105.21541890959807;
+        $latitudekampus = -5.388822234437204;
+        $longitudekampus = 105.21540042541791;
         $lokasi = $request->lokasi;
         $lokasiuser = explode(",", $lokasi);
         $latitudeuser = $lokasiuser[0];
@@ -33,18 +33,23 @@ class PresensiController extends Controller
         $jarak = $this->distance($latitudekampus, $longitudekampus, $latitudeuser, $longitudeuser);
         $radius = round($jarak["meters"]);
 
+        $cek = DB::table('presensi')->where('tgl_presensi', $tgl_presensi)->where('npm', $npm)->count();
 
+        if ($cek > 0) {
+            $ket = "out";
+        } else {
+            $ket = "in";
+        }
         $image = $request->image;
         $folderPath = "public/uploads/absensi/";
-        $formatName = $id . "-" . $tgl_presensi;
+        $formatName = $npm . "-" . $tgl_presensi . "-" . $ket;
         $image_parts = explode(";base64", $image);
         $image_base64 = base64_decode($image_parts[1]);
         $fileName = $formatName . ".png";
         $file = $folderPath . $fileName;
 
-        $cek = DB::table('presensi')->where('tgl_presensi', $tgl_presensi)->where('id', $id)->count();
         if ($radius > 20) {
-            echo "error|Maaf, Anda Berada Diluar Radius, Jarak Anda ".$radius."m Dari Lokasi|radius";
+            echo "error|Maaf, Anda Berada Diluar Radius, Jarak Anda " . $radius . "m Dari Lokasi|radius";
         } else {
             if ($cek > 0) {
                 $data_pulang = [
@@ -52,7 +57,7 @@ class PresensiController extends Controller
                     'foto_out' => $fileName,
                     'lokasi_out' => $lokasi
                 ];
-                $update = DB::table('presensi')->where('tgl_presensi', $tgl_presensi)->where('id', $id)->update($data_pulang);
+                $update = DB::table('presensi')->where('tgl_presensi', $tgl_presensi)->where('npm', $npm)->update($data_pulang);
                 if ($update) {
                     echo "success|Terima Kasih, Sampai Ketemu Lagi :)|out";
                     Storage::put($file, $image_base64);
@@ -61,7 +66,7 @@ class PresensiController extends Controller
                 }
             } else {
                 $data = [
-                    'id' => $id,
+                    'npm' => $npm,
                     'tgl_presensi' => $tgl_presensi,
                     'jam_in' => $jam,
                     'foto_in' => $fileName,

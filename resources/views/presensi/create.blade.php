@@ -3,7 +3,7 @@
     <!-- App Header -->
     <div class="appHeader bg-primary text-light">
         <div class="left">
-            <a href="javascript:;" class="headerButton goBack">
+            <a href="/home" class="headerButton goBack">
                 <ion-icon name="chevron-back-outline"></ion-icon>
             </a>
         </div>
@@ -86,7 +86,7 @@
             }).addTo(map);
             var marker = L.marker([position.coords.latitude, position.coords.longitude]).addTo(map);
             // Lokasi Kampus
-            var circle = L.circle([-5.387261931715078, 105.21541890959807], {
+            var circle = L.circle([-5.388822234437204, 105.21540042541791], {
                 color: 'red',
                 fillColor: '#f03',
                 fillOpacity: 0.5,
