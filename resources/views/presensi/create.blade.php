@@ -79,17 +79,18 @@
 
         function successCallback(position) {
             lokasi.value = position.coords.latitude + "," + position.coords.longitude;
-            var map = L.map('map').setView([position.coords.latitude, position.coords.longitude], 15);
+            var map = L.map('map').setView([position.coords.latitude, position.coords.longitude], 17);
             L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
                 maxZoom: 19,
                 attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
             }).addTo(map);
             var marker = L.marker([position.coords.latitude, position.coords.longitude]).addTo(map);
-            var circle = L.circle([position.coords.latitude, position.coords.longitude], {
+            // Lokasi Kampus
+            var circle = L.circle([-5.387261931715078, 105.21541890959807], {
                 color: 'red',
                 fillColor: '#f03',
                 fillOpacity: 0.5,
-                radius: 500
+                radius: 50
             }).addTo(map);
         }
 
@@ -118,15 +119,13 @@
                             title: 'Berhasil!',
                             text: status[1],
                             icon: 'success'
-                            // confirmButtonText: 'Ok'
                         })
                         setTimeout("location.href='/home'", 3000);
                     } else {
                         Swal.fire({
                             title: 'Gagal!',
-                            text: 'Maaf Gagal Absen, Silahkan Coba Lagi',
+                            text: status[1],
                             icon: 'error'
-                            // confirmButtonText: 'Ok'
                         })
                     }
                 }
