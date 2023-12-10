@@ -3,11 +3,18 @@
     <div class="section" id="user-section">
         <div id="user-detail">
             <div class="avatar">
-                <img src="assets/img/sample/avatar/avatar1.jpg" alt="avatar" class="imaged w64 rounded">
+                @if (!empty(Auth::guard()->user()->foto))
+                    @php
+                        $path = Storage::url('uploads/mahasiswa/' . Auth::guard()->user()->foto);
+                    @endphp
+                    <img src="{{ url($path) }}" alt="avatar" class="imaged w64" style="height:60px">
+                @else
+                    <img src="assets/img/sample/avatar/avatar1.jpg" alt="avatar" class="imaged w64 rounded">
+                @endif
             </div>
             <div id="user-info">
-                <h2 id="user-name">Adam Abdi Al A'la</h2>
-                <span id="user-role">Head of IT</span>
+                <h2 id="user-name">{{ Auth::guard()->user()->name }}</h2>
+                <span id="user-role">{{ Auth::guard()->user()->prodi }}</span>
             </div>
         </div>
     </div>
@@ -18,7 +25,7 @@
                 <div class="list-menu">
                     <div class="item-menu text-center">
                         <div class="menu-icon">
-                            <a href="" class="green" style="font-size: 40px;">
+                            <a href="/editProfile" class="green" style="font-size: 40px;">
                                 <ion-icon name="person-sharp"></ion-icon>
                             </a>
                         </div>
@@ -117,7 +124,7 @@
                     <div class="card">
                         <div class="card-body text-center" style="padding: 12px 12px !important; line-height:0.8rem;">
                             <span class="badge bg-danger"
-                                style="position: absolute; top:3px; right:3px; font-size:0.6rem; z-index:999">10</span>
+                                style="position: absolute; top:3px; right:3px; font-size:0.6rem; z-index:999">{{ $rekappresensi->jmlhadir }}</span>
                             <ion-icon name="accessibility-outline" style="font-size: 1.6rem;"
                                 class="text-primary"></ion-icon>
                             <br>
@@ -129,7 +136,7 @@
                     <div class="card">
                         <div class="card-body text-center" style="padding: 12px 12px !important; line-height:0.8rem;">
                             <span class="badge bg-danger"
-                                style="position: absolute; top:3px; right:3px; font-size:0.6rem; z-index:999">10</span>
+                                style="position: absolute; top:3px; right:3px; font-size:0.6rem; z-index:999"></span>
                             <ion-icon name="newspaper-outline" style="font-size: 1.6rem;" class="text-success"></ion-icon>
                             <br>
                             <span style="font-size: 0.8rem; font-weight:500">Izin</span>
@@ -140,7 +147,7 @@
                     <div class="card">
                         <div class="card-body text-center" style="padding: 12px 12px !important; line-height:0.8rem;">
                             <span class="badge bg-danger"
-                                style="position: absolute; top:3px; right:3px; font-size:0.6rem; z-index:999">10</span>
+                                style="position: absolute; top:3px; right:3px; font-size:0.6rem; z-index:999"></span>
                             <ion-icon name="medkit-outline" style="font-size: 1.6rem;" class="text-warning"></ion-icon>
                             <br>
                             <span style="font-size: 0.8rem; font-weight:500">Sakit</span>
@@ -151,7 +158,7 @@
                     <div class="card">
                         <div class="card-body text-center" style="padding: 12px 12px !important; line-height:0.8rem;">
                             <span class="badge bg-danger"
-                                style="position: absolute; top:3px; right:3px; font-size:0.6rem; z-index:999">10</span>
+                                style="position: absolute; top:3px; right:3px; font-size:0.6rem; z-index:999">{{ $rekappresensi->jmlterlambat }}</span>
                             <ion-icon name="alarm-outline" style="font-size: 1.6rem;" class="text-danger"></ion-icon>
                             <br>
                             <span style="font-size: 0.8rem; font-weight:500">Telat</span>
@@ -200,48 +207,22 @@
                 </div>
                 <div class="tab-pane fade" id="profile" role="tabpanel">
                     <ul class="listview image-listview">
-                        <li>
-                            <div class="item">
-                                <img src="assets/img/sample/avatar/avatar1.jpg" alt="image" class="image">
-                                <div class="in">
-                                    <div>Edward Lindgren</div>
-                                    <span class="text-muted">Designer</span>
+                        @foreach ($leaderboard as $d)
+                            <li>
+                                <div class="item">
+                                    <img src="assets/img/sample/avatar/avatar1.jpg" alt="image" class="image">
+                                    <div class="in">
+                                        <div>
+                                            <b>{{ $d->name }}</b><br>
+                                            <small class="text-muted">{{ $d->prodi }}</small>
+                                        </div>
+                                        <span class="badge {{ $d->jam_in < '07:00' ? 'bg-success' : 'bg-danger' }}">
+                                            {{ $d->jam_in }}
+                                        </span>
+                                    </div>
                                 </div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="item">
-                                <img src="assets/img/sample/avatar/avatar1.jpg" alt="image" class="image">
-                                <div class="in">
-                                    <div>Emelda Scandroot</div>
-                                    <span class="badge badge-primary">3</span>
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="item">
-                                <img src="assets/img/sample/avatar/avatar1.jpg" alt="image" class="image">
-                                <div class="in">
-                                    <div>Henry Bove</div>
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="item">
-                                <img src="assets/img/sample/avatar/avatar1.jpg" alt="image" class="image">
-                                <div class="in">
-                                    <div>Henry Bove</div>
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="item">
-                                <img src="assets/img/sample/avatar/avatar1.jpg" alt="image" class="image">
-                                <div class="in">
-                                    <div>Henry Bove</div>
-                                </div>
-                            </div>
-                        </li>
+                            </li>
+                        @endforeach
                     </ul>
                 </div>
 

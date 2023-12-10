@@ -17,16 +17,22 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
-Route::middleware(['guest'])->group(function () {
+// Route::middleware(['guest'])->group(function () {
     Route::get('/', function () {
         return view('auth.login');
     });
-});
+// });
 
 Route::get('dashboard', [DashboardController::class, 'index']);
 Route::get('home', [HomeController::class, 'index']);
+
+// Presensi
 Route::get('presensi/create', [PresensiController::class, 'create']);
 Route::post('presensi/store', [PresensiController::class, 'store']);
+
+// Edit Profile
+Route::get('editProfile', [PresensiController::class, 'editProfile']);
+Route::post('/presensi/{npm}/updateProfile', [PresensiController::class, 'updateProfile']);
 
 Auth::routes();
 
