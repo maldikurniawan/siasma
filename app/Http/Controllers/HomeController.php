@@ -13,18 +13,18 @@ class HomeController extends Controller
         $hariini = date("Y-m-d");
         $bulanini = date("m") * 1;
         $tahunini = date("Y");
-        $npm = Auth::guard()->user()->npm;
-        $presensihariini = DB::table('presensi')->where('npm', $npm)->where('tgl_presensi', $hariini)->first();
+        $id = Auth::guard()->user()->id;
+        $presensihariini = DB::table('presensi')->where('users_id', $id)->where('tgl_presensi', $hariini)->first();
         $historibulanini = DB::table('presensi')
-            ->where('npm', $npm)
+            ->where('users_id', $id)
             ->whereRaw('MONTH(tgl_presensi)="' . $bulanini . '"')
             ->whereRaw('YEAR(tgl_presensi)="' . $tahunini . '"')
             ->orderBy('tgl_presensi')
             ->get();
 
         $rekappresensi = DB::table('presensi')
-            ->selectRaw('COUNT(npm) as jmlhadir, SUM(IF(jam_in > "07:00",1,0)) as jmlterlambat')
-            ->where('npm', $npm)
+            ->selectRaw('COUNT(users_id) as jmlhadir, SUM(IF(jam_in > "07:00",1,0)) as jmlterlambat')
+            ->where('users_id', $id)
             ->whereRaw('MONTH(tgl_presensi)="' . $bulanini . '"')
             ->whereRaw('YEAR(tgl_presensi)="' . $tahunini . '"')
             ->first();

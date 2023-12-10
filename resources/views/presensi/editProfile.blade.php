@@ -32,7 +32,7 @@
             @endif
         </div>
     </div>
-    <form action="/presensi/{{ $users->npm }}/updateProfile" method="POST" enctype="multipart/form-data">
+    <form action="/presensi/{{ $users->id }}/updateProfile" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="col">
             <div class="form-group boxed">
@@ -43,8 +43,26 @@
             </div>
             <div class="form-group boxed">
                 <div class="input-wrapper">
+                    <input type="text" class="form-control" value="{{ $users->npm }}" name="npm" placeholder="NPM"
+                        autocomplete="off">
+                </div>
+            </div>
+            <div class="form-group boxed">
+                <div class="input-wrapper">
+                    <input type="text" class="form-control" value="{{ $users->prodi }}" name="prodi"
+                        placeholder="Prodi" autocomplete="off">
+                </div>
+            </div>
+            <div class="form-group boxed">
+                <div class="input-wrapper">
                     <input type="text" class="form-control" value="{{ $users->no_hp }}" name="no_hp"
                         placeholder="No. HP" autocomplete="off">
+                </div>
+            </div>
+            <div class="form-group boxed">
+                <div class="input-wrapper">
+                    <input type="text" class="form-control" value="{{ $users->email }}" name="email"
+                        placeholder="Email" autocomplete="off">
                 </div>
             </div>
             <div class="form-group boxed">

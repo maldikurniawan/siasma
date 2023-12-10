@@ -32,7 +32,7 @@ Route::post('presensi/store', [PresensiController::class, 'store']);
 
 // Edit Profile
 Route::get('editProfile', [PresensiController::class, 'editProfile']);
-Route::post('/presensi/{npm}/updateProfile', [PresensiController::class, 'updateProfile']);
+Route::post('/presensi/{id}/updateProfile', [PresensiController::class, 'updateProfile']);
 
 Auth::routes();
 

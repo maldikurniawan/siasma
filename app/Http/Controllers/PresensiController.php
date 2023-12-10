@@ -14,19 +14,19 @@ class PresensiController extends Controller
     public function create()
     {
         $hariini = date("Y-m-d");
-        $npm = Auth::guard()->user()->npm;
-        $cek = DB::table('presensi')->where('tgl_presensi', $hariini)->where('npm', $npm)->count();
+        $id = Auth::guard()->user()->id;
+        $cek = DB::table('presensi')->where('tgl_presensi', $hariini)->where('users_id', $id)->count();
         return view('presensi.create', compact('cek'));
     }
 
     public function store(Request $request)
     {
-        $npm = Auth::guard()->user()->npm;
+        $id = Auth::guard()->user()->id;
         $tgl_presensi = date("Y-m-d");
         $jam = date("H:i:s");
         // Lokasi Kampus
-        $latitudekampus = -5.388679084989499;
-        $longitudekampus = 105.22114419374697;
+        $latitudekampus = -5.38930012355604;
+        $longitudekampus = 105.21549416594726;
         $lokasi = $request->lokasi;
         $lokasiuser = explode(",", $lokasi);
         $latitudeuser = $lokasiuser[0];
@@ -35,7 +35,7 @@ class PresensiController extends Controller
         $jarak = $this->distance($latitudekampus, $longitudekampus, $latitudeuser, $longitudeuser);
         $radius = round($jarak["meters"]);
 
-        $cek = DB::table('presensi')->where('tgl_presensi', $tgl_presensi)->where('npm', $npm)->count();
+        $cek = DB::table('presensi')->where('tgl_presensi', $tgl_presensi)->where('users_id', $id)->count();
 
         if ($cek > 0) {
             $ket = "out";
@@ -44,7 +44,7 @@ class PresensiController extends Controller
         }
         $image = $request->image;
         $folderPath = "public/uploads/absensi/";
-        $formatName = $npm . "-" . $tgl_presensi . "-" . $ket;
+        $formatName = $id . "-" . $tgl_presensi . "-" . $ket;
         $image_parts = explode(";base64", $image);
         $image_base64 = base64_decode($image_parts[1]);
         $fileName = $formatName . ".png";
@@ -59,7 +59,7 @@ class PresensiController extends Controller
                     'foto_out' => $fileName,
                     'lokasi_out' => $lokasi
                 ];
-                $update = DB::table('presensi')->where('tgl_presensi', $tgl_presensi)->where('npm', $npm)->update($data_pulang);
+                $update = DB::table('presensi')->where('tgl_presensi', $tgl_presensi)->where('users_id', $id)->update($data_pulang);
                 if ($update) {
                     echo "success|Terima Kasih, Sampai Jumpa :)|out";
                     Storage::put($file, $image_base64);
@@ -68,7 +68,6 @@ class PresensiController extends Controller
                 }
             } else {
                 $data = [
-                    'npm' => $npm,
                     'tgl_presensi' => $tgl_presensi,
                     'jam_in' => $jam,
                     'foto_in' => $fileName,
@@ -103,20 +102,23 @@ class PresensiController extends Controller
 
     public function editProfile()
     {
-        $npm = Auth::guard()->user()->npm;
-        $users = DB::table('users')->where('npm', $npm)->first();
+        $id = Auth::guard()->user()->id;
+        $users = DB::table('users')->where('id', $id)->first();
         return view('presensi.editProfile', compact('users'));
     }
 
     public function updateProfile(Request $request)
     {
-        $npm = Auth::guard()->user()->npm;
+        $id = Auth::guard()->user()->id;
         $name = $request->name;
+        $prodi = $request->prodi;
+        $npm = $request->npm;
         $no_hp = $request->no_hp;
+        $email = $request->email;
         $password = Hash::make($request->password);
-        $users = DB::table('users')->where('npm', $npm)->first();
+        $users = DB::table('users')->where('id', $id)->first();
         if ($request->hasFile('foto')) {
-            $foto = $npm . "." . $request->file('foto')->getClientOriginalExtension();
+            $foto = $id . "." . $request->file('foto')->getClientOriginalExtension();
         } else {
             $foto = $users->foto;
         }
@@ -124,19 +126,25 @@ class PresensiController extends Controller
         if (empty($request->password)) {
             $data = [
                 'name' => $name,
+                'prodi' => $prodi,
+                'npm' => $npm,
                 'no_hp' => $no_hp,
+                'email' => $email,
                 'foto' => $foto
             ];
         } else {
             $data = [
                 'name' => $name,
+                'prodi' => $prodi,
+                'npm' => $npm,
                 'no_hp' => $no_hp,
+                'email' => $email,
                 'password' => $password,
                 'foto' => $foto
             ];
         }
 
-        $update = DB::table('users')->where('npm', $npm)->update($data);
+        $update = DB::table('users')->where('id', $id)->update($data);
         if ($update) {
             if ($request->hasFile('foto')) {
                 $folderPath = "public/uploads/mahasiswa/";
