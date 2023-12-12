@@ -34,6 +34,10 @@ Route::post('presensi/store', [PresensiController::class, 'store']);
 Route::get('editProfile', [PresensiController::class, 'editProfile']);
 Route::post('/presensi/{id}/updateProfile', [PresensiController::class, 'updateProfile']);
 
+// Histori
+Route::get('presensi/histori', [PresensiController::class, 'histori']);
+Route::post('gethistori', [PresensiController::class, 'gethistori']);
+
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

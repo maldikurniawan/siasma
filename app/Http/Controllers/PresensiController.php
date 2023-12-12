@@ -25,8 +25,8 @@ class PresensiController extends Controller
         $tgl_presensi = date("Y-m-d");
         $jam = date("H:i:s");
         // Lokasi Kampus
-        $latitudekampus = -5.38930012355604;
-        $longitudekampus = 105.21549416594726;
+        $latitudekampus = -5.369716039508526;
+        $longitudekampus = 105.21683115815627;
         $lokasi = $request->lokasi;
         $lokasiuser = explode(",", $lokasi);
         $latitudeuser = $lokasiuser[0];
@@ -50,7 +50,7 @@ class PresensiController extends Controller
         $fileName = $formatName . ".png";
         $file = $folderPath . $fileName;
 
-        if ($radius > 20) {
+        if ($radius > 50) {
             echo "error|Maaf, Anda Berada Diluar Radius, Jarak Anda " . $radius . "m Dari Lokasi|radius";
         } else {
             if ($cek > 0) {
@@ -154,5 +154,27 @@ class PresensiController extends Controller
         } else {
             return Redirect::back()->with(['error' => 'Data Gagal Di Update']);
         }
+    }
+
+    public function histori()
+    {
+        $namabulan = ["", "Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
+        return view('presensi.histori', compact('namabulan'));
+    }
+
+    public function gethistori(Request $request)
+    {
+        $bulan = $request->bulan;
+        $tahun = $request->tahun;
+        $id = Auth::guard()->user()->id;
+
+        $histori = DB::table('presensi')
+            ->whereRaw('MONTH(tgl_presensi)="' . $bulan . '"')
+            ->whereRaw('YEAR(tgl_presensi)="' . $tahun . '"')
+            ->where('users_id', $id)
+            ->orderBy('tgl_presensi')
+            ->get();
+
+        return view('presensi.gethistori', compact('histori'));
     }
 }

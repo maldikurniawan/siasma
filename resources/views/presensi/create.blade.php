@@ -86,7 +86,7 @@
             }).addTo(map);
             var marker = L.marker([position.coords.latitude, position.coords.longitude]).addTo(map);
             // Lokasi Kampus
-            var circle = L.circle([-5.38930012355604, 105.21549416594726], {
+            var circle = L.circle([-5.369716039508526, 105.21683115815627], {
                 color: 'red',
                 fillColor: '#f03',
                 fillOpacity: 0.5,
