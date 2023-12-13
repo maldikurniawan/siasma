@@ -25,8 +25,8 @@ class PresensiController extends Controller
         $tgl_presensi = date("Y-m-d");
         $jam = date("H:i:s");
         // Lokasi Kampus
-        $latitudekampus = -5.369716039508526;
-        $longitudekampus = 105.21683115815627;
+        $latitudekampus = -5.387469184531152;
+        $longitudekampus = 105.21715633972377;
         $lokasi = $request->lokasi;
         $lokasiuser = explode(",", $lokasi);
         $latitudeuser = $lokasiuser[0];
@@ -176,5 +176,40 @@ class PresensiController extends Controller
             ->get();
 
         return view('presensi.gethistori', compact('histori'));
+    }
+
+    public function izin()
+    {
+        $id = Auth::guard()->user()->id;
+        $dataizin = DB::table('pengajuan_izin')->where('users_id', $id)->get();
+        return view('presensi.izin', compact('dataizin'));
+    }
+
+    public function buatizin()
+    {
+        return view('presensi.buatizin');
+    }
+
+    public function storeizin(Request $request)
+    {
+        $id = Auth::guard()->user()->id;
+        $tgl_izin = $request->tgl_izin;
+        $status = $request->status;
+        $keterangan = $request->keterangan;
+
+        $data = [
+            'tgl_izin' => $tgl_izin,
+            'status' => $status,
+            'keterangan' => $keterangan,
+            'users_id' => Auth::user()->id
+        ];
+
+        $simpan = DB::table('pengajuan_izin')->insert($data);
+
+        if ($simpan) {
+            return redirect('presensi/izin')->with(['success' => 'Data Berhasil Disimpan']);
+        } else {
+            return redirect('presensi/izin')->with(['success' => 'Data Gagal Disimpan']);
+        }
     }
 }

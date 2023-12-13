@@ -17,11 +17,11 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
-// Route::middleware(['guest'])->group(function () {
+Route::middleware(['guest'])->group(function () {
     Route::get('/', function () {
         return view('auth.login');
     });
-// });
+});
 
 Route::get('dashboard', [DashboardController::class, 'index']);
 Route::get('home', [HomeController::class, 'index']);
@@ -37,6 +37,11 @@ Route::post('/presensi/{id}/updateProfile', [PresensiController::class, 'updateP
 // Histori
 Route::get('presensi/histori', [PresensiController::class, 'histori']);
 Route::post('gethistori', [PresensiController::class, 'gethistori']);
+
+//Izin
+Route::get('presensi/izin', [PresensiController::class, 'izin']);
+Route::get('presensi/buatizin', [PresensiController::class, 'buatizin']);
+Route::post('presensi/storeizin', [PresensiController::class, 'storeizin']);
 
 Auth::routes();
 

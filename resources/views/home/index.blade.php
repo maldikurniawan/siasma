@@ -36,11 +36,11 @@
                     <div class="item-menu text-center">
                         <div class="menu-icon">
                             <a href="" class="danger" style="font-size: 40px;">
-                                <ion-icon name="calendar-number"></ion-icon>
+                                <ion-icon name="folder"></ion-icon>
                             </a>
                         </div>
                         <div class="menu-name">
-                            <span class="text-center">Cuti</span>
+                            <span class="text-center">Matkul</span>
                         </div>
                     </div>
                     <div class="item-menu text-center">
@@ -136,8 +136,8 @@
                     <div class="card">
                         <div class="card-body text-center" style="padding: 12px 12px !important; line-height:0.8rem;">
                             <span class="badge bg-danger"
-                                style="position: absolute; top:3px; right:3px; font-size:0.6rem; z-index:999"></span>
-                            <ion-icon name="newspaper-outline" style="font-size: 1.6rem;" class="text-success"></ion-icon>
+                                style="position: absolute; top:3px; right:3px; font-size:0.6rem; z-index:999">{{ $rekapizin->jmlizin }}</span>
+                            <ion-icon name="calendar-outline" style="font-size: 1.6rem;" class="text-success"></ion-icon>
                             <br>
                             <span style="font-size: 0.8rem; font-weight:500">Izin</span>
                         </div>
@@ -147,7 +147,7 @@
                     <div class="card">
                         <div class="card-body text-center" style="padding: 12px 12px !important; line-height:0.8rem;">
                             <span class="badge bg-danger"
-                                style="position: absolute; top:3px; right:3px; font-size:0.6rem; z-index:999"></span>
+                                style="position: absolute; top:3px; right:3px; font-size:0.6rem; z-index:999">{{ $rekapizin->jmlsakit }}</span>
                             <ion-icon name="medkit-outline" style="font-size: 1.6rem;" class="text-warning"></ion-icon>
                             <br>
                             <span style="font-size: 0.8rem; font-weight:500">Sakit</span>

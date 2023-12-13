@@ -37,6 +37,14 @@ class HomeController extends Controller
 
         $namabulan = ["", "Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
 
-        return view('home.index', compact('presensihariini', 'historibulanini', 'namabulan', 'bulanini', 'tahunini', 'rekappresensi', 'leaderboard'));
+        $rekapizin = DB::table('pengajuan_izin')
+            ->selectRaw('SUM(IF(status="i",1,0)) as jmlizin, SUM(IF(status="s",1,0)) as jmlsakit')
+            ->where('users_id', $id)
+            ->whereRaw('MONTH(tgl_izin)="' . $bulanini . '"')
+            ->whereRaw('YEAR(tgl_izin)="' . $tahunini . '"')
+            ->where('status_approved', 1)
+            ->first();
+
+        return view('home.index', compact('presensihariini', 'historibulanini', 'namabulan', 'bulanini', 'tahunini', 'rekappresensi', 'leaderboard', 'rekapizin'));
     }
 }
