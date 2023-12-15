@@ -35,12 +35,12 @@
                     </div>
                     <div class="item-menu text-center">
                         <div class="menu-icon">
-                            <a href="" class="danger" style="font-size: 40px;">
-                                <ion-icon name="folder"></ion-icon>
+                            <a href="/presensi/izin" class="danger" style="font-size: 40px;">
+                                <ion-icon name="calendar"></ion-icon>
                             </a>
                         </div>
                         <div class="menu-name">
-                            <span class="text-center">Matkul</span>
+                            <span class="text-center">Izin</span>
                         </div>
                     </div>
                     <div class="item-menu text-center">
@@ -55,7 +55,7 @@
                     </div>
                     <div class="item-menu text-center">
                         <div class="menu-icon">
-                            <a href="" class="orange" style="font-size: 40px;">
+                            <a href="/konfigurasi/lokasiabsen" class="orange" style="font-size: 40px;">
                                 <ion-icon name="location"></ion-icon>
                             </a>
                         </div>

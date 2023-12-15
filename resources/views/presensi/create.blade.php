@@ -80,17 +80,22 @@
         function successCallback(position) {
             lokasi.value = position.coords.latitude + "," + position.coords.longitude;
             var map = L.map('map').setView([position.coords.latitude, position.coords.longitude], 17);
+            var lokasi_absen = "{{ $lok_absen->lokasi_absen }}";
+            var lok = lokasi_absen.split(",");
+            var lat_absen = lok[0];
+            var long_absen = lok[1];
+            var radius = "{{ $lok_absen->radius }}";
             L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
                 maxZoom: 19,
                 attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
             }).addTo(map);
             var marker = L.marker([position.coords.latitude, position.coords.longitude]).addTo(map);
             // Lokasi Kampus
-            var circle = L.circle([-5.387469184531152, 105.21715633972377], {
+            var circle = L.circle([lat_absen, long_absen], {
                 color: 'red',
                 fillColor: '#f03',
                 fillOpacity: 0.5,
-                radius: 50
+                radius: radius
             }).addTo(map);
         }
 

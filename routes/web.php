@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\KonfigurasiController;
 use App\Http\Controllers\PresensiController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
@@ -42,6 +43,10 @@ Route::post('gethistori', [PresensiController::class, 'gethistori']);
 Route::get('presensi/izin', [PresensiController::class, 'izin']);
 Route::get('presensi/buatizin', [PresensiController::class, 'buatizin']);
 Route::post('presensi/storeizin', [PresensiController::class, 'storeizin']);
+
+// Konfigurasi
+Route::get('konfigurasi/lokasiabsen', [KonfigurasiController::class, 'lokasiabsen']);
+Route::post('konfigurasi/updatelokasi', [KonfigurasiController::class, 'updatelokasi']);
 
 Auth::routes();
 
