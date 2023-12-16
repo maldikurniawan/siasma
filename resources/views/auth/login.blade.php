@@ -60,9 +60,9 @@
                     </div>
 
                     <div class="form-links mt-2">
-                        {{-- <div>
+                        <div>
                             <a href="{{ url('/register') }}">Register Now</a>
-                        </div> --}}
+                        </div>
                         <div>
                             <a href="{{ route('password.request') }}" class="text-muted">Forgot Password?</a>
                         </div>

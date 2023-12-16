@@ -30,4 +30,33 @@ class KonfigurasiController extends Controller
             return Redirect::back()->with(['warning' => 'Data gagal Diupdate']);
         }
     }
+
+    public function jamabsen()
+    {
+        $jam_absen = DB::table('jam_absen')->where('id', 1)->first();
+        return view('konfigurasi.jamabsen', compact('jam_absen'));
+    }
+
+    public function updatejamabsen(Request $request)
+    {
+        $matkul = $request->matkul;
+        $awal_jam_masuk = $request->awal_jam_masuk;
+        $jam_masuk = $request->jam_masuk;
+        $akhir_jam_masuk = $request->akhir_jam_masuk;
+        $jam_pulang = $request->jam_pulang;
+
+        $updatejam = DB::table('jam_absen')->where('id', 1)->update([
+            'matkul' => $matkul,
+            'awal_jam_masuk' => $awal_jam_masuk,
+            'jam_masuk' => $jam_masuk,
+            'akhir_jam_masuk' => $akhir_jam_masuk,
+            'jam_pulang' => $jam_pulang
+        ]);
+
+        if ($updatejam) {
+            return Redirect::back()->with(['success' => 'Data Berhasil Diupdate']);
+        } else {
+            return Redirect::back()->with(['warning' => 'Data gagal Diupdate']);
+        }
+    }
 }

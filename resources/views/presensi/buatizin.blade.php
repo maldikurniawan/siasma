@@ -2,7 +2,7 @@
 @section('header')
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
     <style>
-        .datepicker-modal{
+        .datepicker-modal {
             max-height: 465px !important;
         }
     </style>
@@ -51,6 +51,30 @@
         $(document).ready(function() {
             $(".datepicker").datepicker({
                 format: "yyyy-mm-dd"
+            });
+
+            $("#tgl_izin").change(function(e) {
+                var tgl_izin = $(this).val();
+                $.ajax({
+                    type: 'POST',
+                    url: '/presensi/cekpengajuanizin',
+                    data: {
+                        _token: "{{ csrf_token() }}",
+                        tgl_izin: tgl_izin
+                    },
+                    cache: false,
+                    success: function(respond) {
+                        if (respond == 1) {
+                            Swal.fire({
+                                title: 'Error!',
+                                text: 'Anda Sudah Mengajukan Izin Pada Tanggal Tersebut!',
+                                icon: 'warning'
+                            }).then((result)=>{
+                                $("#tgl_izin").val("");
+                            });
+                        }
+                    }
+                });
             });
 
             $("#frmizin").submit(function() {

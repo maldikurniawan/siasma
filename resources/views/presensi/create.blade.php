@@ -24,6 +24,26 @@
         #map {
             height: 200px;
         }
+
+        .jam-digital-malasngoding {
+
+            background-color: #27272783;
+            position: absolute;
+            top: 62px;
+            right: 9px;
+            z-index: 9999;
+            width: 200px;
+            border-radius: 10px;
+            /* padding: 0px; */
+        }
+
+        .jam-digital-malasngoding p {
+            color: #fff;
+            font-size: 16px;
+            text-align: center;
+            margin-top: 0;
+            margin-bottom: 0;
+        }
     </style>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
         integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
@@ -31,12 +51,18 @@
 @endsection
 
 @section('content')
-    <div class="row" style="margin-top: 70px">
+    <div class="row" style="margin-top: 60px">
         <div class="col">
             <input type="hidden" id="lokasi">
             <div class="webcam-capture">
             </div>
         </div>
+    </div>
+    <div class="jam-digital-malasngoding">
+        {{-- <p id="jam"></p> --}}
+        <p>Absen Dibuka : {{ date('H:i', strtotime($jam_absen->awal_jam_masuk)) }}</p>
+        <p>Absen Tutup : {{ date('H:i', strtotime($jam_absen->akhir_jam_masuk)) }}</p>
+        <p>Absen Pulang : {{ date('H:i', strtotime($jam_absen->jam_pulang)) }}</p>
     </div>
     <div class="row">
         <div class="col">
@@ -62,6 +88,29 @@
 @endsection
 
 @push('myscript')
+    <script type="text/javascript">
+        window.onload = function() {
+            jam();
+        }
+
+        function jam() {
+            var e = document.getElementById('jam'),
+                d = new Date(),
+                h, m, s;
+            h = d.getHours();
+            m = set(d.getMinutes());
+            s = set(d.getSeconds());
+
+            e.innerHTML = h + ':' + m + ':' + s;
+
+            setTimeout('jam()', 1000);
+        }
+
+        function set(e) {
+            e = e < 10 ? '0' + e : e;
+            return e;
+        }
+    </script>
     <script>
         Webcam.set({
             height: 480,

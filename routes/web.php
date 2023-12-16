@@ -43,10 +43,15 @@ Route::post('gethistori', [PresensiController::class, 'gethistori']);
 Route::get('presensi/izin', [PresensiController::class, 'izin']);
 Route::get('presensi/buatizin', [PresensiController::class, 'buatizin']);
 Route::post('presensi/storeizin', [PresensiController::class, 'storeizin']);
+Route::post('presensi/cekpengajuanizin', [PresensiController::class, 'cekpengajuanizin']);
 
-// Konfigurasi
+// Konfigurasi Absen
 Route::get('konfigurasi/lokasiabsen', [KonfigurasiController::class, 'lokasiabsen']);
 Route::post('konfigurasi/updatelokasi', [KonfigurasiController::class, 'updatelokasi']);
+
+// Konfigurasi Jam Absen
+Route::get('konfigurasi/jamabsen', [KonfigurasiController::class, 'jamabsen']);
+Route::post('konfigurasi/updatejamabsen', [KonfigurasiController::class, 'updatejamabsen']);
 
 Auth::routes();
 

@@ -1,19 +1,40 @@
 @extends('dashboard.index')
 @section('content')
+    <style>
+        .logout {
+            position: absolute;
+            color: white;
+            font-size: 30px;
+            text-decoration: none;
+            right: 8px;
+        }
+
+        .logout:hover {
+            color: white;
+        }
+    </style>
     <div class="section" id="user-section">
+        <a href="{{ route('logout') }}" class="logout"
+            onclick="event.preventDefault();
+            document.getElementById('logout-form').submit();">
+            <ion-icon name="exit-outline"></ion-icon>
+        </a>
+        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+            @csrf
+        </form>
         <div id="user-detail">
             <div class="avatar">
                 @if (!empty(Auth::guard()->user()->foto))
                     @php
                         $path = Storage::url('uploads/mahasiswa/' . Auth::guard()->user()->foto);
                     @endphp
-                    <img src="{{ url($path) }}" alt="avatar" class="imaged w64" style="height:60px">
+                    <img src="{{ url($path) }}" alt="avatar" class="imaged w64 rounded" style="height:60px">
                 @else
                     <img src="assets/img/sample/avatar/avatar1.jpg" alt="avatar" class="imaged w64 rounded">
                 @endif
             </div>
             <div id="user-info">
-                <h2 id="user-name">{{ Auth::guard()->user()->name }}</h2>
+                <h3 id="user-name">{{ Auth::guard()->user()->name }}</h3>
                 <span id="user-role">{{ Auth::guard()->user()->prodi }}</span>
             </div>
         </div>
@@ -36,21 +57,21 @@
                     <div class="item-menu text-center">
                         <div class="menu-icon">
                             <a href="/presensi/izin" class="danger" style="font-size: 40px;">
-                                <ion-icon name="calendar"></ion-icon>
+                                <ion-icon name="document-attach"></ion-icon>
                             </a>
                         </div>
                         <div class="menu-name">
-                            <span class="text-center">Izin</span>
+                            <span class="text-center">Rekap</span>
                         </div>
                     </div>
                     <div class="item-menu text-center">
                         <div class="menu-icon">
-                            <a href="/presensi/histori" class="warning" style="font-size: 40px;">
-                                <ion-icon name="document-text"></ion-icon>
+                            <a href="/konfigurasi/jamabsen" class="warning" style="font-size: 40px;">
+                                <ion-icon name="alarm"></ion-icon>
                             </a>
                         </div>
                         <div class="menu-name">
-                            <span class="text-center">Histori</span>
+                            <span class="text-center">Jam</span>
                         </div>
                     </div>
                     <div class="item-menu text-center">

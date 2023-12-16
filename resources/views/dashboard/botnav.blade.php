@@ -7,8 +7,8 @@
     </a>
     <a href="{{ url('presensi/histori') }}" class="item {{ request()->is('presensi/histori') ? 'active' : '' }}">
         <div class="col">
-            <ion-icon name="document-text-outline" role="img" class="md hydrated"
-                aria-label="document text outline"></ion-icon>
+            <ion-icon name="desktop-outline" role="img" class="md hydrated"
+                aria-label="desktop-outline"></ion-icon>
             <strong>Histori</strong>
         </div>
     </a>

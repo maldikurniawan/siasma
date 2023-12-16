@@ -17,7 +17,8 @@ class PresensiController extends Controller
         $id = Auth::guard()->user()->id;
         $cek = DB::table('presensi')->where('tgl_presensi', $hariini)->where('users_id', $id)->count();
         $lok_absen = DB::table('konfigurasi_lokasi')->where('id', 1)->first();
-        return view('presensi.create', compact('cek', 'lok_absen'));
+        $jam_absen = DB::table('jam_absen')->where('id', 1)->first();
+        return view('presensi.create', compact('cek', 'lok_absen', 'jam_absen'));
     }
 
     public function store(Request $request)
@@ -37,6 +38,7 @@ class PresensiController extends Controller
 
         $jarak = $this->distance($latitudekampus, $longitudekampus, $latitudeuser, $longitudeuser);
         $radius = round($jarak["meters"]);
+        $jam_absen = DB::table('jam_absen')->where('id', 1)->first();
 
         $cek = DB::table('presensi')->where('tgl_presensi', $tgl_presensi)->where('users_id', $id)->count();
 
@@ -57,32 +59,42 @@ class PresensiController extends Controller
             echo "error|Maaf, Anda Berada Diluar Radius, Jarak Anda " . $radius . "m Dari Lokasi|radius";
         } else {
             if ($cek > 0) {
-                $data_pulang = [
-                    'jam_out' => $jam,
-                    'foto_out' => $fileName,
-                    'lokasi_out' => $lokasi
-                ];
-                $update = DB::table('presensi')->where('tgl_presensi', $tgl_presensi)->where('users_id', $id)->update($data_pulang);
-                if ($update) {
-                    echo "success|Terima Kasih, Sampai Jumpa :)|out";
-                    Storage::put($file, $image_base64);
+                if ($jam < $jam_absen->jam_pulang) {
+                    echo "error|Maaf, Belum Waktunya Pulang|out";
                 } else {
-                    echo "error|Maaf Gagal Absen, Silahkan Coba Lagi|out";
+                    $data_pulang = [
+                        'jam_out' => $jam,
+                        'foto_out' => $fileName,
+                        'lokasi_out' => $lokasi
+                    ];
+                    $update = DB::table('presensi')->where('tgl_presensi', $tgl_presensi)->where('users_id', $id)->update($data_pulang);
+                    if ($update) {
+                        echo "success|Terima Kasih, Sampai Jumpa :)|out";
+                        Storage::put($file, $image_base64);
+                    } else {
+                        echo "error|Maaf Gagal Absen, Silahkan Coba Lagi|out";
+                    }
                 }
             } else {
-                $data = [
-                    'tgl_presensi' => $tgl_presensi,
-                    'jam_in' => $jam,
-                    'foto_in' => $fileName,
-                    'lokasi_in' => $lokasi,
-                    'users_id' => Auth::user()->id
-                ];
-                $simpan = DB::table('presensi')->insert($data);
-                if ($simpan) {
-                    echo "success|Terima Kasih, Selamat Belajar :)|in";
-                    Storage::put($file, $image_base64);
+                if ($jam < $jam_absen->awal_jam_masuk) {
+                    echo "error|Maaf, Belum Waktunya Presensi|in";
+                } else if ($jam > $jam_absen->akhir_jam_masuk) {
+                    echo "error|Maaf, Waktu Presensi Sudah Habis|in";
                 } else {
-                    echo "error|Maaf Gagal Absen, Silahkan Coba Lagi|out";
+                    $data = [
+                        'tgl_presensi' => $tgl_presensi,
+                        'jam_in' => $jam,
+                        'foto_in' => $fileName,
+                        'lokasi_in' => $lokasi,
+                        'users_id' => Auth::user()->id
+                    ];
+                    $simpan = DB::table('presensi')->insert($data);
+                    if ($simpan) {
+                        echo "success|Terima Kasih, Selamat Belajar :)|in";
+                        Storage::put($file, $image_base64);
+                    } else {
+                        echo "error|Maaf Gagal Absen, Silahkan Coba Lagi|in";
+                    }
                 }
             }
         }
@@ -214,5 +226,14 @@ class PresensiController extends Controller
         } else {
             return redirect('presensi/izin')->with(['success' => 'Data Gagal Disimpan']);
         }
+    }
+
+    public function cekpengajuanizin(Request $request)
+    {
+        $tgl_izin = $request->tgl_izin;
+        $id = Auth::guard()->user()->id;
+
+        $cek = DB::table('pengajuan_izin')->where('users_id', $id)->where('tgl_izin', $tgl_izin)->count();
+        return $cek;
     }
 }
