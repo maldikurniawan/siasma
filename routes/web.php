@@ -30,6 +30,8 @@ Route::get('home', [HomeController::class, 'index']);
 // Presensi
 Route::get('presensi/create', [PresensiController::class, 'create']);
 Route::post('presensi/store', [PresensiController::class, 'store']);
+Route::get('presensi/rekap', [PresensiController::class, 'rekap']);
+Route::post('presensi/cetakrekap', [PresensiController::class, 'cetakrekap']);
 
 // Edit Profile
 Route::get('editProfile', [PresensiController::class, 'editProfile']);

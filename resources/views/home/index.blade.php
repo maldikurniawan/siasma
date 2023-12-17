@@ -56,7 +56,7 @@
                     </div>
                     <div class="item-menu text-center">
                         <div class="menu-icon">
-                            <a href="/presensi/izin" class="danger" style="font-size: 40px;">
+                            <a href="/presensi/rekap" class="danger" style="font-size: 40px;">
                                 <ion-icon name="document-attach"></ion-icon>
                             </a>
                         </div>
@@ -237,7 +237,7 @@
                                             <b>{{ $d->name }}</b><br>
                                             <small class="text-muted">{{ $d->prodi }}</small>
                                         </div>
-                                        <span class="badge {{ $d->jam_in < '07:00' ? 'bg-success' : 'bg-danger' }}">
+                                        <span class="badge {{ $d->jam_in < '08:30' ? 'bg-success' : 'bg-danger' }}">
                                             {{ $d->jam_in }}
                                         </span>
                                     </div>
