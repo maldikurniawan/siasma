@@ -107,8 +107,8 @@
                     ?>
 
                     <td>
-                        <span>{{ $hadir[0] }}</span><br>
-                        <span>{{ $hadir[1] }}</span>
+                        <span>{{ $hadir[0] }}</span>
+                        {{-- <span>{{ $hadir[1] }}</span> --}}
                     </td>
                     <?php } ?>
                     <td>{{ $totalhadir }}</td>
