@@ -206,25 +206,6 @@
             </div>
             <div class="tab-content mt-2" style="margin-bottom:100px;">
                 <div class="tab-pane fade show active" id="home" role="tabpanel">
-                    {{-- <ul class="listview image-listview">
-                        @foreach ($historibulanini as $d)
-                            @php
-                                $path = Storage::url('uploads/absensi/' . $d->foto_in);
-                            @endphp
-                            <li>
-                                <div class="item">
-                                    <div class="icon-box bg-primary">
-                                        <ion-icon name="person-outline"></ion-icon>
-                                    </div>
-                                    <div class="in">
-                                        <div>{{ date('d-m-Y', strtotime($d->tgl_presensi)) }}</div>
-                                        <span class="badge badge-success">{{ date('H:i', strtotime($d->jam_in)) }}</span>
-                                        <span class="badge badge-danger">{{ date('H:i', strtotime($d->jam_out)) }}</span>
-                                    </div>
-                                </div>
-                            </li>
-                        @endforeach
-                    </ul> --}}
                     <style>
                         .historicontent {
                             display: flex;
@@ -240,7 +221,7 @@
                                 <div class="historicontent">
                                     <div class="iconpresensi">
                                         <ion-icon name="person-outline" style="font-size: 48px;"
-                                            class="text-success"></ion-icon>
+                                            class="text-primary"></ion-icon>
                                     </div>
                                     <div class="datapresensi">
                                         <h3 style="line-height: 3px">{{ $d->matkul }}</h3>

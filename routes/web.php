@@ -46,6 +46,12 @@ Route::get('presensi/izin', [PresensiController::class, 'izin']);
 Route::get('presensi/buatizin', [PresensiController::class, 'buatizin']);
 Route::post('presensi/storeizin', [PresensiController::class, 'storeizin']);
 Route::post('presensi/cekpengajuanizin', [PresensiController::class, 'cekpengajuanizin']);
+Route::post('presensi/approveizinsakit', [PresensiController::class, 'approveizinsakit']);
+Route::get('presensi/{id}/batalkanizinsakit', [PresensiController::class, 'batalkanizinsakit']);
+Route::get('izin/{kode_izin}/showact', [PresensiController::class, 'showact']);
+Route::get('izin/{kode_izin}/edit', [PresensiController::class, 'editizin']);
+Route::post('izin/{kode_izin}/update', [PresensiController::class, 'updateizin']);
+Route::get('izin/{kode_izin}/delete', [PresensiController::class, 'deleteizin']);
 
 // Konfigurasi Absen
 Route::get('konfigurasi/lokasiabsen', [KonfigurasiController::class, 'lokasiabsen']);

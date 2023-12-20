@@ -238,6 +238,31 @@ class PresensiController extends Controller
         }
     }
 
+    public function editizin($kode_izin)
+    {
+        $dataizin = DB::table('pengajuan_izin')->where('id', $kode_izin)->first();
+        return view('presensi.editizin', compact('dataizin'));
+    }
+
+    public function updateizin($kode_izin, Request $request)
+    {
+        $tgl_izin = $request->tgl_izin;
+        $status = $request->status;
+        $keterangan = $request->keterangan;
+
+        try {
+            $data = [
+                'tgl_izin' => $tgl_izin,
+                'status' => $status,
+                'keterangan' => $keterangan
+            ];
+            DB::table('pengajuan_izin')->where('id', $kode_izin)->update($data);
+            return redirect('presensi/izin')->with(['success' => 'Data Berhasil Disimpan']);
+        } catch (\Throwable $e) {
+            return redirect('presensi/izin')->with(['success' => 'Data Gagal Disimpan']);
+        }
+    }
+
     public function cekpengajuanizin(Request $request)
     {
         $tgl_izin = $request->tgl_izin;
@@ -245,6 +270,70 @@ class PresensiController extends Controller
 
         $cek = DB::table('pengajuan_izin')->where('users_id', $id)->where('tgl_izin', $tgl_izin)->count();
         return $cek;
+    }
+
+    public function showact($kode_izin)
+    {
+        $dataizin = DB::table('pengajuan_izin')->where('id', $kode_izin)->first();
+        return view('presensi.showact', compact('dataizin'));
+    }
+
+    public function deleteizin($kode_izin)
+    {
+        try {
+            DB::table('pengajuan_izin')->where('id', $kode_izin)->delete();
+            return redirect('presensi/izin')->with(['success' => 'Data Berhasil Dihapus']);
+        } catch (\Throwable $e) {
+            return redirect('presensi/izin')->with(['success' => 'Data Gagal Dihapus']);
+        }
+    }
+
+    public function approveizinsakit(Request $request)
+    {
+        $status_approved = $request->status_approved;
+        $id = $request->id_izinsakit_form;
+        $dataizin = DB::table('pengajuan_izin')->where('id', $id)->first();
+        $users_id = $dataizin->users_id;
+        $tgl_izin = $dataizin->tgl_izin;
+        $status = $dataizin->status;
+        $jam_absen = DB::table('jam_absen')->where('id', 1)->first();
+        DB::beginTransaction();
+        try {
+            if ($status_approved == 1) {
+                DB::table('presensi')->insert([
+                    'users_id' => $users_id,
+                    'tgl_presensi' => $tgl_izin,
+                    'jam_absen_id' => $jam_absen->id,
+                    'pengajuan_izin_id' => $id,
+                    'status' => $status
+                ]);
+            }
+
+            DB::table('pengajuan_izin')->where('id', $id)->update([
+                'status_approved' => $status_approved
+            ]);
+            DB::commit();
+            return Redirect::back()->with(['success' => 'Data Berhasil Diupdate']);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return Redirect::back()->with(['warning' => 'Data Gagal Diupdate']);
+        }
+    }
+
+    public function batalkanizinsakit($id)
+    {
+        DB::beginTransaction();
+        try {
+            DB::table('pengajuan_izin')->where('id', $id)->update([
+                'status_approved' => 0
+            ]);
+            DB::table('presensi')->where('pengajuan_izin_id', $id)->delete();
+            DB::commit();
+            return Redirect::back()->with(['success' => 'Data Berhasil Diupdate']);
+        } catch (\Throwable $e) {
+            DB::rollBack();
+            return Redirect::back()->with(['warning' => 'Data Gagal Diupdate']);
+        }
     }
 
     public function rekap()
