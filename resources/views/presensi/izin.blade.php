@@ -48,6 +48,49 @@
     </div>
     <div class="row">
         <div class="col">
+            <form method="GET" action="/presensi/izin">
+                <div class="row">
+                    <div class="col-8">
+                        <div class="form-group">
+                            <select name="bulan" id="bulan" class="form-control selectmaterialize">
+                                <option value="" hidden>Bulan</option>
+                                @for ($i = 1; $i <= 12; $i++)
+                                    <option {{ Request('bulan') == $i ? 'selected' : '' }} value="{{ $i }}">
+                                        {{ $namabulan[$i] }}</option>
+                                @endfor
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="form-group">
+                            <select name="tahun" id="tahun" class="form-control selectmaterialize">
+                                <option value="" hidden>Tahun</option>
+                                @php
+                                    $tahun_awal = 2022;
+                                    $tahun_sekarang = date('Y');
+                                    for ($t = $tahun_awal; $t <= $tahun_sekarang; $t++) {
+                                        if (Request('tahun') == $t) {
+                                            $selected = 'selected';
+                                        } else {
+                                            $selected = '';
+                                        }
+                                        echo "<option $selected value='$t'>$t</option>";
+                                    }
+                                @endphp
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <button class="btn btn-primary w-100">Cari Data</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div><br>
+    <div class="row">
+        <div class="col">
             @foreach ($dataizin as $d)
                 @php
                     if ($d->status == 'i') {
@@ -58,7 +101,7 @@
                         $status = 'Not Found';
                     }
                 @endphp
-                <div class="card mb-1 card_izin" kode_izin="{{ $d->id }}" status_approved="{{ $d->status_approved }}"
+                <div class="card mb-2 card_izin" kode_izin="{{ $d->id }}" status_approved="{{ $d->status_approved }}"
                     data-toggle="modal" data-target="#actionSheetIconed">
                     <div class="card-body">
                         <div class="historicontent">
