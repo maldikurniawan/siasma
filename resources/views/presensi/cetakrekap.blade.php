@@ -78,40 +78,61 @@
             <tr>
                 <th rowspan="2">NPM</th>
                 <th rowspan="2">Nama Mahasiswa</th>
-                <th colspan="31">Tanggal</th>
-                <th rowspan="2">Total Hadir</th>
+                <th colspan="{{ $jmlhari }}">Bulan {{ $namabulan[$bulan] }} {{ $tahun }}</th>
+                <th rowspan="2">H</th>
+                <th rowspan="2">I</th>
+                <th rowspan="2">S</th>
+                <th rowspan="2">A</th>
             </tr>
             <tr>
-                <?php
-                for ($i=1; $i <= 31; $i++) {
-                ?>
-                <th>{{ $i }}</th>
-                <?php } ?>
+                @foreach ($rangetanggal as $d)
+                    @if ($d != null)
+                        <th>{{ date('d', strtotime($d)) }}</th>
+                    @endif
+                @endforeach
             </tr>
-            @foreach ($rekap as $d)
+            @foreach ($rekap as $r)
                 <tr>
-                    <td>{{ $d->npm }}</td>
-                    <td>{{ $d->name }}</td>
-
+                    <td>{{ $r->npm }}</td>
+                    <td>{{ $r->name }}</td>
                     <?php
-                    $totalhadir = 0;
-                    for ($i=1; $i <= 31; $i++) {
-                        $tgl = "tgl_".$i;
-                        if (empty($d->$tgl)) {
-                            $hadir = ['',''];
-                            $totalhadir += 0;
+                    $jml_hadir = 0;
+                    $jml_izin = 0;
+                    $jml_sakit = 0;
+                    $jml_alpa = 0;
+                    for ($i = 1; $i <= $jmlhari; $i++) {
+                        $tgl = 'tgl_' . $i;
+                        $datapresensi = explode("|",$r->$tgl);
+                        if ($r->$tgl != NULL) {
+                            $status = $datapresensi[2];
                         }else {
-                            $hadir = explode("-",$d->$tgl);
-                            $totalhadir += 1;
+                            $status = "";
+                        }
+
+                        if($status == "h"){
+                            $jml_hadir += 1;
+                        }
+
+                        if($status == "i"){
+                            $jml_izin += 1;
+                        }
+
+                        if($status == "s"){
+                            $jml_sakit += 1;
+                        }
+
+                        if(empty($status)){
+                            $jml_alpa += 1;
                         }
                     ?>
-
                     <td>
-                        <span>{{ $hadir[0] }}</span>
-                        {{-- <span>{{ $hadir[1] }}</span> --}}
+                        {{ $status }}
                     </td>
                     <?php } ?>
-                    <td>{{ $totalhadir }}</td>
+                    <td>{{ !empty($jml_hadir) ? $jml_hadir : '' }}</td>
+                    <td>{{ !empty($jml_izin) ? $jml_izin : '' }}</td>
+                    <td>{{ !empty($jml_sakit) ? $jml_sakit : '' }}</td>
+                    <td>{{ !empty($jml_alpa) ? $jml_alpa : '' }}</td>
                 </tr>
             @endforeach
         </table>
