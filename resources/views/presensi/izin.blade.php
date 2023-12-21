@@ -88,8 +88,8 @@
                 </div>
             </form>
         </div>
-    </div><br>
-    <div class="row">
+    </div>
+    <div class="row mt-2">
         <div class="col">
             @foreach ($dataizin as $d)
                 @php

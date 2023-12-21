@@ -3,25 +3,42 @@
         <p>Data Belum Ada</p>
     </div>
 @endif
+<style>
+    .historicontent {
+        display: flex;
+    }
+
+    .datapresensi {
+        margin-left: 10px;
+    }
+</style>
 @foreach ($histori as $d)
-    <ul class="listview image-listview">
-        <li>
-            <div class="item">
-                @php
-                    $path = Storage::url('uploads/absensi/' . $d->foto_in);
-                @endphp
-                <img src="{{ url($path) }}" alt="image" class="image">
-                <div class="in">
-                    <div>
-                        <b>{{ date('d-m-Y', strtotime($d->tgl_presensi)) }}</b><br>
-                        {{-- <small class="text-muted">{{ $d->prodi }}</small> --}}
+    @if ($d->status == 'h')
+        <div class="card mb-1">
+            <div class="card-body">
+                <div class="historicontent">
+                    <div class="iconpresensi">
+                        <ion-icon name="person-outline" style="font-size: 48px;" class="text-primary"></ion-icon>
                     </div>
-                    <span class="badge {{ $d->jam_in < $d->jam_masuk ? 'bg-success' : 'bg-danger' }}">
-                        {{ date('H:i', strtotime($d->jam_in)) }}
-                    </span>
-                    {{-- <span class="badge bg-primary">{{ $d->jam_out }}</span> --}}
+                    <div class="datapresensi">
+                        <h3 style="line-height: 3px">{{ $d->matkul }}</h3>
+                        <h4 style="margin: 0px; !important">
+                            {{ date('d-m-Y', strtotime($d->tgl_presensi)) }}</h4>
+                        <span>
+                            {!! $d->jam_in != null ? date('H:i', strtotime($d->jam_in)) : '<span class="text-danger">Belum Scan</span>' !!}
+                        </span>
+                        <span>
+                            {!! $d->jam_out != null
+                                ? '-' . date('H:i', strtotime($d->jam_out))
+                                : '<span class="text-danger">- Belum Scan</span>' !!}
+                        </span>
+                        <br>
+                        <span>{!! date('H:i', strtotime($d->jam_in)) > date('H:i', strtotime($d->jam_masuk))
+                            ? '<span class="text-danger">Terlambat</span>'
+                            : '<span class="text-success">Tepat Waktu</span>' !!}</span>
+                    </div>
                 </div>
             </div>
-        </li>
-    </ul>
+        </div>
+    @endif
 @endforeach

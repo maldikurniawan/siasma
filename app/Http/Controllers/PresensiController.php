@@ -195,9 +195,9 @@ class PresensiController extends Controller
 
         $histori = DB::table('presensi')
             ->leftJoin('jam_absen', 'presensi.jam_absen_id', '=', 'jam_absen.id')
+            ->where('users_id', $id)
             ->whereRaw('MONTH(tgl_presensi)="' . $bulan . '"')
             ->whereRaw('YEAR(tgl_presensi)="' . $tahun . '"')
-            ->where('users_id', $id)
             ->orderBy('tgl_presensi')
             ->get();
 
