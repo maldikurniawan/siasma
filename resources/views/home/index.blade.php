@@ -250,20 +250,23 @@
                 <div class="tab-pane fade" id="profile" role="tabpanel">
                     <ul class="listview image-listview">
                         @foreach ($leaderboard as $d)
-                            <li>
-                                <div class="item">
-                                    <img src="assets/img/sample/avatar/avatar1.jpg" alt="image" class="image">
-                                    <div class="in">
-                                        <div>
-                                            <b>{{ $d->name }}</b><br>
-                                            <small class="text-muted">{{ $d->prodi }}</small>
+                            @if ($d->status == 'h')
+                                <li>
+                                    <div class="item">
+                                        <img src="assets/img/sample/avatar/avatar1.jpg" alt="image" class="image">
+                                        <div class="in">
+                                            <div>
+                                                <b>{{ $d->name }}</b><br>
+                                                <small class="text-muted">{{ $d->prodi }}</small>
+                                            </div>
+                                            <span
+                                                class="badge {{ $d->jam_in < $d->jam_masuk ? 'bg-success' : 'bg-danger' }}">
+                                                {{ date('H:i', strtotime($d->jam_in)) }}
+                                            </span>
                                         </div>
-                                        <span class="badge {{ $d->jam_in < $d->jam_masuk ? 'bg-success' : 'bg-danger' }}">
-                                            {{ date('H:i', strtotime($d->jam_in)) }}
-                                        </span>
                                     </div>
-                                </div>
-                            </li>
+                                </li>
+                            @endif
                         @endforeach
                     </ul>
                 </div>

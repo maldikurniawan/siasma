@@ -24,7 +24,7 @@ class HomeController extends Controller
             ->get();
 
         $rekappresensi = DB::table('presensi')
-            ->selectRaw('COUNT(users_id) as jmlhadir, SUM(IF(jam_in > jam_masuk,1,0)) as jmlterlambat')
+            ->selectRaw('SUM(IF(status="h",1,0)) as jmlhadir, SUM(IF(jam_in > jam_masuk,1,0)) as jmlterlambat')
             ->leftJoin('jam_absen', 'presensi.jam_absen_id', '=', 'jam_absen.id')
             ->where('users_id', $id)
             ->whereRaw('MONTH(tgl_presensi)="' . $bulanini . '"')
