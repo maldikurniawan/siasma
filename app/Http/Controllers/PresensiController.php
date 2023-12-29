@@ -206,22 +206,38 @@ class PresensiController extends Controller
 
     public function izin(Request $request)
     {
+        $role = Auth::user()->role;
         $id = Auth::guard()->user()->id;
 
-        if (!empty($request->bulan) && !empty($request->tahun)) {
-            $dataizin = DB::table('pengajuan_izin')
-                ->where('users_id', $id)
-                ->whereRaw('MONTH(tgl_izin)="' . $request->bulan . '"')
-                ->whereRaw('YEAR(tgl_izin)="' . $request->tahun . '"')
-                ->get();
+        if ($role === 'mahasiswa') {
+            if (!empty($request->bulan) && !empty($request->tahun)) {
+                $dataizin = DB::table('pengajuan_izin')
+                    ->where('users_id', $id)
+                    ->whereRaw('MONTH(tgl_izin)="' . $request->bulan . '"')
+                    ->whereRaw('YEAR(tgl_izin)="' . $request->tahun . '"')
+                    ->get();
+            } else {
+                $dataizin = DB::table('pengajuan_izin')
+                    ->where('users_id', $id)
+                    ->limit(5)
+                    ->orderBy('tgl_izin', 'desc')
+                    ->get();
+            }
         } else {
-            $dataizin = DB::table('pengajuan_izin')
-                ->where('users_id', $id)
-                ->limit(5)
-                ->orderBy('tgl_izin', 'desc')
-                ->get();
+            if (!empty($request->bulan) && !empty($request->tahun)) {
+                $dataizin = DB::table('pengajuan_izin')
+                    ->join('users', 'users.id', '=', 'pengajuan_izin.users_id')
+                    ->whereRaw('MONTH(tgl_izin)="' . $request->bulan . '"')
+                    ->whereRaw('YEAR(tgl_izin)="' . $request->tahun . '"')
+                    ->get();
+            } else {
+                $dataizin = DB::table('pengajuan_izin')
+                    ->join('users', 'users.id', '=', 'pengajuan_izin.users_id')
+                    ->limit(5)
+                    ->orderBy('tgl_izin', 'desc')
+                    ->get();
+            }
         }
-
         $namabulan = ["", "Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
         return view('presensi.izin', compact('dataizin', 'namabulan'));
     }

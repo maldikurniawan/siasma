@@ -7905,8 +7905,15 @@ body.dark-mode-active .cart-item .cart-item-footer {
     color: white;
 }
 
-#user-role {
+#user-prodi {
     color: white;
+}
+
+#user-role {
+    position: absolute;
+    color: white;
+    top: 90px;
+    font-size: small;
 }
 
 #menu-section {
