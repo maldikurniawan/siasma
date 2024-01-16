@@ -35,7 +35,7 @@
             </div>
             <div id="user-info">
                 <h3 id="user-name">{{ Auth::guard()->user()->name }}</h3>
-                <span id="user-prodi">{{ Auth::guard()->user()->prodi }}</span><br>
+                <span id="user-prodi">{{ Auth::guard()->user()->npm }}</span><br>
                 <span id="user-role">Logged in as {{ Auth::user()->role }}</span>
             </div>
         </div>
@@ -111,11 +111,11 @@
                         <div class="item-menu text-center">
                             <div class="menu-icon">
                                 <a href="#" class="orange" style="font-size: 40px;">
-                                    <ion-icon name="book"></ion-icon>
+                                    <ion-icon name="location"></ion-icon>
                                 </a>
                             </div>
                             <div class="menu-name">
-                                Matkul
+                                Lokasi
                             </div>
                         </div>
                     @endif

@@ -209,7 +209,7 @@ class PresensiController extends Controller
         $role = Auth::user()->role;
         $id = Auth::guard()->user()->id;
 
-        if ($role === 'mahasiswa') {
+        // if ($role === 'mahasiswa') {
             if (!empty($request->bulan) && !empty($request->tahun)) {
                 $dataizin = DB::table('pengajuan_izin')
                     ->where('users_id', $id)
@@ -223,21 +223,21 @@ class PresensiController extends Controller
                     ->orderBy('tgl_izin', 'desc')
                     ->get();
             }
-        } else {
-            if (!empty($request->bulan) && !empty($request->tahun)) {
-                $dataizin = DB::table('pengajuan_izin')
-                    ->join('users', 'users.id', '=', 'pengajuan_izin.users_id')
-                    ->whereRaw('MONTH(tgl_izin)="' . $request->bulan . '"')
-                    ->whereRaw('YEAR(tgl_izin)="' . $request->tahun . '"')
-                    ->get();
-            } else {
-                $dataizin = DB::table('pengajuan_izin')
-                    ->join('users', 'users.id', '=', 'pengajuan_izin.users_id')
-                    ->limit(5)
-                    ->orderBy('tgl_izin', 'desc')
-                    ->get();
-            }
-        }
+        // } else {
+        //     if (!empty($request->bulan) && !empty($request->tahun)) {
+        //         $dataizin = DB::table('pengajuan_izin')
+        //             ->join('users', 'users.id', '=', 'pengajuan_izin.users_id')
+        //             ->whereRaw('MONTH(tgl_izin)="' . $request->bulan . '"')
+        //             ->whereRaw('YEAR(tgl_izin)="' . $request->tahun . '"')
+        //             ->get();
+        //     } else {
+        //         $dataizin = DB::table('pengajuan_izin')
+        //             ->join('users', 'users.id', '=', 'pengajuan_izin.users_id')
+        //             ->limit(5)
+        //             ->orderBy('tgl_izin', 'desc')
+        //             ->get();
+        //     }
+        // }
         $namabulan = ["", "Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
         return view('presensi.izin', compact('dataizin', 'namabulan'));
     }

@@ -13,7 +13,7 @@
     <!-- * App Header -->
 @endsection
 @section('content')
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta17/dist/css/tabler.min.css">
+    {{-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta17/dist/css/tabler.min.css"> --}}
     <style>
         .historicontent {
             display: flex;
@@ -118,9 +118,9 @@
                                 <h3 style="line-height: 15px">{{ date('d-m-Y', strtotime($d->tgl_izin)) }}
                                     ({{ $status }})
                                 </h3>
-                                @if (Auth::user()->role != 'mahasiswa')
+                                {{-- @if (Auth::user()->role != 'mahasiswa')
                                     <span>{{ $d->name }}</span>
-                                @endif
+                                @endif --}}
                                 <p>{{ $d->keterangan }}</p>
                             </div>
                             <div class="notif">

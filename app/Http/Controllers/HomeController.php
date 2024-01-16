@@ -50,4 +50,8 @@ class HomeController extends Controller
 
         return view('home.index', compact('presensihariini', 'historibulanini', 'namabulan', 'bulanini', 'tahunini', 'rekappresensi', 'leaderboard', 'rekapizin'));
     }
+
+    public function homeadmin(){
+        return view('home.homeadmin');
+    }
 }
