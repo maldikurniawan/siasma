@@ -20,6 +20,7 @@
     <link href="{{ asset('tabler/dist/css/tabler-payments.min.css?1684106062') }}" rel="stylesheet" />
     <link href="{{ asset('tabler/dist/css/tabler-vendors.min.css?1684106062') }}" rel="stylesheet" />
     <link href="{{ asset('tabler/dist/css/demo.min.css?1684106062') }}" rel="stylesheet" />
+    <link href="{{ asset('tabler/dist/css/bg.css') }}" rel="stylesheet" />
     <style>
         @import url('https://rsms.me/inter/inter.css');
 
@@ -33,7 +34,7 @@
     </style>
 </head>
 
-<body class=" d-flex flex-column">
+<body class="bg-login d-flex flex-column">
     <script src="{{ asset('tabler/dist/js/demo-theme.min.js?1684106062') }}"></script>
     <div class="page page-center">
         <div class="container container-tight py-4">

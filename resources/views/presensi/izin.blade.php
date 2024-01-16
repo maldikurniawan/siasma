@@ -118,9 +118,6 @@
                                 <h3 style="line-height: 15px">{{ date('d-m-Y', strtotime($d->tgl_izin)) }}
                                     ({{ $status }})
                                 </h3>
-                                {{-- @if (Auth::user()->role != 'mahasiswa')
-                                    <span>{{ $d->name }}</span>
-                                @endif --}}
                                 <p>{{ $d->keterangan }}</p>
                             </div>
                             <div class="notif">
@@ -131,7 +128,7 @@
                                 @elseif ($d->status_approved == 2)
                                     <span class="badge bg-danger">Decline</span>
                                 @endif
-                                @if (Auth::user()->role != 'mahasiswa')
+                                {{-- @if (Auth::user()->role != 'mahasiswa')
                                     @if ($d->status_approved == 0)
                                         <a href="#" class="badge bg-primary approve"
                                             id_izinsakit="{{ $d->id }}">
@@ -142,7 +139,7 @@
                                             Batal
                                         </a>
                                     @endif
-                                @endif
+                                @endif --}}
                             </div>
                         </div>
                     </div>
@@ -156,7 +153,8 @@
             <ion-icon name="add"></ion-icon>
         </a>
     </div>
-    <div class="modal modal-blur fade" id="modal-izinsakit" tabindex="-1" role="dialog" aria-hidden="true">
+    {{-- Modal Buat Admin --}}
+    {{-- <div class="modal modal-blur fade" id="modal-izinsakit" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -191,22 +189,20 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
     {{-- Modal Pop UP Action --}}
-    @if (Auth::user()->role == 'mahasiswa')
-        <div class="modal fade action-sheet" id="actionSheetIconed" tabindex="-1" role="dialog">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Aksi</h5>
-                    </div>
-                    <div class="modal-body" id="showact">
+    <div class="modal fade action-sheet" id="actionSheetIconed" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Aksi</h5>
+                </div>
+                <div class="modal-body" id="showact">
 
-                    </div>
                 </div>
             </div>
         </div>
-    @endif
+    </div>
     {{-- Delete --}}
     <div class="modal fade dialogbox" id="deleteConfirm" data-backdrop="static" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
@@ -228,7 +224,7 @@
     </div>
 @endsection
 @push('myscript')
-    <script src="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta17/dist/js/tabler.min.js"></script>
+    {{-- <script src="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta17/dist/js/tabler.min.js"></script>
     <script>
         $(function() {
             $(".approve").click(function(e) {
@@ -238,24 +234,22 @@
                 $("#modal-izinsakit").modal("show");
             });
         });
-    </script>
-    @if (Auth::user()->role == 'mahasiswa')
-        <script>
-            $(function() {
-                $(".card_izin").click(function(e) {
-                    var kode_izin = $(this).attr("kode_izin");
-                    var status_approved = $(this).attr("status_approved");
-                    if (status_approved == 1) {
-                        Swal.fire({
-                            title: 'Error!',
-                            text: 'Data Sudah Disetujui, Tidak Dapat Diubah!',
-                            icon: 'warning'
-                        })
-                    } else {
-                        $("#showact").load('/izin/' + kode_izin + '/showact')
-                    }
-                });
+    </script> --}}
+    <script>
+        $(function() {
+            $(".card_izin").click(function(e) {
+                var kode_izin = $(this).attr("kode_izin");
+                var status_approved = $(this).attr("status_approved");
+                if (status_approved == 1) {
+                    Swal.fire({
+                        title: 'Error!',
+                        text: 'Data Sudah Disetujui, Tidak Dapat Diubah!',
+                        icon: 'warning'
+                    })
+                } else {
+                    $("#showact").load('/izin/' + kode_izin + '/showact')
+                }
             });
-        </script>
-    @endif
+        });
+    </script>
 @endpush

@@ -36,7 +36,6 @@
             <div id="user-info">
                 <h3 id="user-name">{{ Auth::guard()->user()->name }}</h3>
                 <span id="user-prodi">{{ Auth::guard()->user()->npm }}</span><br>
-                <span id="user-role">Logged in as {{ Auth::user()->role }}</span>
             </div>
         </div>
     </div>
@@ -55,70 +54,37 @@
                             <span class="text-center">Profil</span>
                         </div>
                     </div>
-                    @if (Auth::user()->role != 'mahasiswa')
-                        <div class="item-menu text-center">
-                            <div class="menu-icon">
-                                <a href="/presensi/rekap" class="danger" style="font-size: 40px;">
-                                    <ion-icon name="document-attach"></ion-icon>
-                                </a>
-                            </div>
-                            <div class="menu-name">
-                                <span class="text-center">Rekap</span>
-                            </div>
+                    <div class="item-menu text-center">
+                        <div class="menu-icon">
+                            <a href="{{ url('presensi/izin') }}" class="danger" style="font-size: 40px;">
+                                <ion-icon name="calendar"></ion-icon>
+                            </a>
                         </div>
-                        <div class="item-menu text-center">
-                            <div class="menu-icon">
-                                <a href="/konfigurasi/jamabsen" class="warning" style="font-size: 40px;">
-                                    <ion-icon name="alarm"></ion-icon>
-                                </a>
-                            </div>
-                            <div class="menu-name">
-                                <span class="text-center">Jam</span>
-                            </div>
+                        <div class="menu-name">
+                            <span class="text-center">Izin</span>
                         </div>
-                        <div class="item-menu text-center">
-                            <div class="menu-icon">
-                                <a href="/konfigurasi/lokasiabsen" class="orange" style="font-size: 40px;">
-                                    <ion-icon name="location"></ion-icon>
-                                </a>
-                            </div>
-                            <div class="menu-name">
-                                Lokasi
-                            </div>
+                    </div>
+                    <div class="item-menu text-center">
+                        <div class="menu-icon">
+                            <a href="{{ url('presensi/histori') }}" class="warning" style="font-size: 40px;">
+                                <ion-icon name="desktop"></ion-icon>
+                            </a>
                         </div>
-                    @endif
-                    @if (Auth::user()->role == 'mahasiswa')
-                        <div class="item-menu text-center">
-                            <div class="menu-icon">
-                                <a href="{{ url('presensi/izin') }}" class="danger" style="font-size: 40px;">
-                                    <ion-icon name="calendar"></ion-icon>
-                                </a>
-                            </div>
-                            <div class="menu-name">
-                                <span class="text-center">Izin</span>
-                            </div>
+                        <div class="menu-name">
+                            <span class="text-center">Histori</span>
                         </div>
-                        <div class="item-menu text-center">
-                            <div class="menu-icon">
-                                <a href="{{ url('presensi/histori') }}" class="warning" style="font-size: 40px;">
-                                    <ion-icon name="desktop"></ion-icon>
-                                </a>
-                            </div>
-                            <div class="menu-name">
-                                <span class="text-center">Histori</span>
-                            </div>
+                    </div>
+                    <div class="item-menu text-center">
+                        <div class="menu-icon">
+                            <a href="#" class="orange" style="font-size: 40px;">
+                                <ion-icon name="location"></ion-icon>
+                            </a>
                         </div>
-                        <div class="item-menu text-center">
-                            <div class="menu-icon">
-                                <a href="#" class="orange" style="font-size: 40px;">
-                                    <ion-icon name="location"></ion-icon>
-                                </a>
-                            </div>
-                            <div class="menu-name">
-                                Lokasi
-                            </div>
+                        <div class="menu-name">
+                            Lokasi
                         </div>
-                    @endif
+                    </div>
+
                 </div>
             </div>
         </div>

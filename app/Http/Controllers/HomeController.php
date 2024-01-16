@@ -51,7 +51,20 @@ class HomeController extends Controller
         return view('home.index', compact('presensihariini', 'historibulanini', 'namabulan', 'bulanini', 'tahunini', 'rekappresensi', 'leaderboard', 'rekapizin'));
     }
 
-    public function homeadmin(){
-        return view('home.homeadmin');
+    public function homeadmin()
+    {
+        $hariini = date("Y-m-d");
+        $rekappresensi = DB::table('presensi')
+            ->selectRaw('SUM(IF(status="h",1,0)) as jmlhadir, SUM(IF(jam_in > jam_masuk,1,0)) as jmlterlambat')
+            ->leftJoin('jam_absen', 'presensi.jam_absen_id', '=', 'jam_absen.id')
+            ->where('tgl_presensi', $hariini)
+            ->first();
+
+        $rekapizin = DB::table('pengajuan_izin')
+            ->selectRaw('SUM(IF(status="i",1,0)) as jmlizin, SUM(IF(status="s",1,0)) as jmlsakit')
+            ->where('tgl_izin', $hariini)
+            ->where('status_approved', 1)
+            ->first();
+        return view('home.homeadmin', compact('rekappresensi', 'rekapizin'));
     }
 }
