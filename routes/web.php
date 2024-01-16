@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\KonfigurasiController;
+use App\Http\Controllers\MahasiswaController;
 use App\Http\Controllers\PresensiController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
@@ -74,6 +75,9 @@ Route::middleware(['auth'])->group(function () {
 Route::middleware(['auth:admin'])->group(function () {
     Route::get('proseslogout', [AuthController::class, 'proseslogout']);
     Route::get('/panel/homeadmin', [HomeController::class, 'homeadmin']);
+
+    // Mahasiswa
+    Route::get('/mahasiswa', [MahasiswaController::class, 'index']);
 });
 
 
