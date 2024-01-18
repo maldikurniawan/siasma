@@ -17,9 +17,9 @@
             <div class="row">
                 <div class="col-12">
                     <div class="card">
-                        <div class="card-body">
-                            <table class="table table-bordered">
-                                <thead>
+                        <div class="data_table">
+                            <table id="example" class="table table-bordered">
+                                <thead class="table-dark">
                                     <tr>
                                         <th>No</th>
                                         <th>NPM</th>
@@ -43,7 +43,8 @@
                                             <td>{{ $d->no_hp }}</td>
                                             <td>
                                                 @if (empty($d->foto))
-                                                    <img src="{{ asset('assets/img/nophoto.jpg') }}" class="avatar" alt="">
+                                                    <img src="{{ asset('assets/img/nophoto.jpg') }}" class="avatar"
+                                                        alt="">
                                                 @else
                                                     <img src="{{ url($path) }}" class="avatar" alt="">
                                                 @endif
@@ -60,4 +61,6 @@
             </div>
         </div>
     </div>
+    <script src="{{ asset('tabler/dist/js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ asset('tabler/dist/js/jquery-3.6.0.min.js') }}"></script>
 @endsection
