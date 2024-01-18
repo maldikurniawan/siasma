@@ -78,6 +78,7 @@ Route::middleware(['auth:admin'])->group(function () {
 
     // Mahasiswa
     Route::get('/mahasiswa', [MahasiswaController::class, 'index']);
+    Route::post('/mahasiswa/store', [MahasiswaController::class, 'store']);
 });
 
 

@@ -153,43 +153,6 @@
             <ion-icon name="add"></ion-icon>
         </a>
     </div>
-    {{-- Modal Buat Admin --}}
-    {{-- <div class="modal modal-blur fade" id="modal-izinsakit" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Izin/Sakit</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form action="approveizinsakit" method="POST">
-                        @csrf
-                        <input type="hidden" id="id_izinsakit_form" name="id_izinsakit_form">
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="form-group">
-                                    <select name="status_approved" id="status_approved" class="form-select">
-                                        <option value="1">Disetujui</option>
-                                        <option value="2">Ditolak</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row mt-1">
-                            <div class="col-12">
-                                <div class="form-group">
-                                    <button class="btn btn-primary w-100" type="submit">
-                                        <ion-icon name="send-outline"></ion-icon>
-                                        Submit
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div> --}}
     {{-- Modal Pop UP Action --}}
     <div class="modal fade action-sheet" id="actionSheetIconed" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
