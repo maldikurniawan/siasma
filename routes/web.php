@@ -79,6 +79,9 @@ Route::middleware(['auth:admin'])->group(function () {
     // Mahasiswa
     Route::get('/mahasiswa', [MahasiswaController::class, 'index']);
     Route::post('/mahasiswa/store', [MahasiswaController::class, 'store']);
+    Route::post('/mahasiswa/edit', [MahasiswaController::class, 'edit']);
+    Route::post('/mahasiswa/{id}/update', [MahasiswaController::class, 'update']);
+    Route::post('/mahasiswa/{id}/delete', [MahasiswaController::class, 'delete']);
 });
 
 

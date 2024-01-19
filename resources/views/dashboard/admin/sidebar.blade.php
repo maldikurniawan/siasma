@@ -238,14 +238,14 @@
                             </svg>
                         </span>
                         <span class="nav-link-title">
-                            Perkuliahan
+                            Data Master
                         </span>
                     </a>
                     <div class="dropdown-menu">
                         <div class="dropdown-menu-columns">
                             <div class="dropdown-menu-column">
                                 <a class="dropdown-item" href="/mahasiswa">
-                                    Data Mahasiswa
+                                    Mahasiswa
                                 </a>
                             </div>
                         </div>

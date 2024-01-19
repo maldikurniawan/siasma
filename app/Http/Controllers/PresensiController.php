@@ -143,7 +143,7 @@ class PresensiController extends Controller
             'foto' => 'required|image|mimes:png,jpg,jpeg'
         ]);
         if ($request->hasFile('foto')) {
-            $foto = $id . "." . $request->file('foto')->getClientOriginalExtension();
+            $foto = $npm . "." . $request->file('foto')->getClientOriginalExtension();
         } else {
             $foto = $users->foto;
         }
@@ -208,7 +208,7 @@ class PresensiController extends Controller
     {
         $role = Auth::user()->role;
         $id = Auth::guard()->user()->id;
-        
+
         if (!empty($request->bulan) && !empty($request->tahun)) {
             $dataizin = DB::table('pengajuan_izin')
                 ->where('users_id', $id)

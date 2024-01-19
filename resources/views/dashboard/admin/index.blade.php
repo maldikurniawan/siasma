@@ -20,7 +20,6 @@
     <link href="{{ asset('tabler/dist/css/tabler-payments.min.css?1684106062') }}" rel="stylesheet" />
     <link href="{{ asset('tabler/dist/css/tabler-vendors.min.css?1684106062') }}" rel="stylesheet" />
     <link href="{{ asset('tabler/dist/css/demo.min.css?1684106062') }}" rel="stylesheet" />
-    <link href="{{ asset('tabler/dist/css/style.css') }}" rel="stylesheet" />
     <style>
         @import url('https://rsms.me/inter/inter.css');
 
@@ -56,11 +55,6 @@
         integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <script src="{{ asset('tabler/dist/js/tabler.min.js?1684106062') }}" defer></script>
     <script src="{{ asset('tabler/dist/js/demo.min.js?1684106062') }}" defer></script>
-    {{-- Data Table --}}
-    <script src="{{ asset('tabler/dist/js/datatables.min.js') }}"></script>
-    <script src="{{ asset('tabler/dist/js/pdfmake.min.js') }}"></script>
-    <script src="{{ asset('tabler/dist/js/vfs_fonts.js') }}"></script>
-    <script src="{{ asset('tabler/dist/js/custom.js') }}"></script>
     {{-- Sweetalert --}}
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     @stack('myscript')

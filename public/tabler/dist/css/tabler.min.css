@@ -3387,7 +3387,7 @@ textarea.form-control-lg {
     height: calc(1.4285714286em + 1rem + calc(var(--tblr-border-width) * 2))
 }
 
-/* .form-select {
+.form-select {
     --tblr-form-select-bg-img: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23929dab' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e");
     display: block;
     width: 100%;
@@ -3409,7 +3409,7 @@ textarea.form-control-lg {
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none
-} */
+}
 
 @media (prefers-reduced-motion:reduce) {
     .form-select {
@@ -23201,7 +23201,7 @@ a.card-title:hover {
     border-radius: 0 0 var(--tblr-card-border-radius) var(--tblr-card-border-radius)
 }
 
-/* .card-table {
+.card-table {
     margin-bottom: 0 !important
 }
 
@@ -23209,28 +23209,28 @@ a.card-title:hover {
 .card-table tr th:first-child {
     padding-left: 1.5rem;
     border-left: 0
-} */
+}
 
-/* .card-table tr td:last-child,
+.card-table tr td:last-child,
 .card-table tr th:last-child {
     padding-right: 1.5rem;
     border-right: 0
-} */
+}
 
-/* .card-table tbody tr:first-child,
+.card-table tbody tr:first-child,
 .card-table tfoot tr:first-child,
 .card-table thead tr:first-child {
     border-top: 0
-} */
+}
 
-/* .card-table tbody tr:first-child td,
+.card-table tbody tr:first-child td,
 .card-table tbody tr:first-child th,
 .card-table tfoot tr:first-child td,
 .card-table tfoot tr:first-child th,
 .card-table thead tr:first-child td,
 .card-table thead tr:first-child th {
     border-top: 0
-} */
+}
 
 .card-body+.card-table {
     border-top: var(--tblr-border-width) var(--tblr-border-style) var(--tblr-table-border-color)
@@ -26454,7 +26454,7 @@ a.step-item:hover {
     transform: translateY(0)
 }
 
-/* .markdown>table thead th,
+.markdown>table thead th,
 .table thead th {
     color: var(--tblr-muted);
     background: var(--tblr-bg-surface-tertiary);
@@ -26467,15 +26467,15 @@ a.step-item:hover {
     padding-top: .5rem;
     padding-bottom: .5rem;
     white-space: nowrap
-} */
+}
 
-/* @media print {
+@media print {
 
     .markdown>table thead th,
     .table thead th {
         background: 0 0
     }
-} */
+}
 
 .table-responsive .markdown>table,
 .table-responsive .table {
