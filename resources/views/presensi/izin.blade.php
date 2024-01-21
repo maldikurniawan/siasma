@@ -13,7 +13,6 @@
     <!-- * App Header -->
 @endsection
 @section('content')
-    {{-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta17/dist/css/tabler.min.css"> --}}
     <style>
         .historicontent {
             display: flex;
@@ -128,18 +127,6 @@
                                 @elseif ($d->status_approved == 2)
                                     <span class="badge bg-danger">Decline</span>
                                 @endif
-                                {{-- @if (Auth::user()->role != 'mahasiswa')
-                                    @if ($d->status_approved == 0)
-                                        <a href="#" class="badge bg-primary approve"
-                                            id_izinsakit="{{ $d->id }}">
-                                            ACC
-                                        </a>
-                                    @else
-                                        <a href="/presensi/{{ $d->id }}/batalkanizinsakit" class="badge bg-danger">
-                                            Batal
-                                        </a>
-                                    @endif
-                                @endif --}}
                             </div>
                         </div>
                     </div>
@@ -187,17 +174,6 @@
     </div>
 @endsection
 @push('myscript')
-    {{-- <script src="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta17/dist/js/tabler.min.js"></script>
-    <script>
-        $(function() {
-            $(".approve").click(function(e) {
-                e.preventDefault();
-                var id_izinsakit = $(this).attr("id_izinsakit");
-                $("#id_izinsakit_form").val(id_izinsakit);
-                $("#modal-izinsakit").modal("show");
-            });
-        });
-    </script> --}}
     <script>
         $(function() {
             $(".card_izin").click(function(e) {

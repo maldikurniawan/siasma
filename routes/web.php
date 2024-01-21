@@ -40,8 +40,6 @@ Route::middleware(['auth'])->group(function () {
     // Presensi
     Route::get('presensi/create', [PresensiController::class, 'create']);
     Route::post('presensi/store', [PresensiController::class, 'store']);
-    Route::get('presensi/rekap', [PresensiController::class, 'rekap']);
-    Route::post('presensi/cetakrekap', [PresensiController::class, 'cetakrekap']);
 
     // Edit Profile
     Route::get('editProfile', [PresensiController::class, 'editProfile']);
@@ -56,20 +54,10 @@ Route::middleware(['auth'])->group(function () {
     Route::get('presensi/buatizin', [PresensiController::class, 'buatizin']);
     Route::post('presensi/storeizin', [PresensiController::class, 'storeizin']);
     Route::post('presensi/cekpengajuanizin', [PresensiController::class, 'cekpengajuanizin']);
-    Route::post('presensi/approveizinsakit', [PresensiController::class, 'approveizinsakit']);
-    Route::get('presensi/{id}/batalkanizinsakit', [PresensiController::class, 'batalkanizinsakit']);
     Route::get('izin/{kode_izin}/showact', [PresensiController::class, 'showact']);
     Route::get('izin/{kode_izin}/edit', [PresensiController::class, 'editizin']);
     Route::post('izin/{kode_izin}/update', [PresensiController::class, 'updateizin']);
     Route::get('izin/{kode_izin}/delete', [PresensiController::class, 'deleteizin']);
-
-    // Konfigurasi Absen
-    Route::get('konfigurasi/lokasiabsen', [KonfigurasiController::class, 'lokasiabsen']);
-    Route::post('konfigurasi/updatelokasi', [KonfigurasiController::class, 'updatelokasi']);
-
-    // Konfigurasi Jam Absen
-    Route::get('konfigurasi/jamabsen', [KonfigurasiController::class, 'jamabsen']);
-    Route::post('konfigurasi/updatejamabsen', [KonfigurasiController::class, 'updatejamabsen']);
 });
 
 Route::middleware(['auth:admin'])->group(function () {
@@ -82,8 +70,24 @@ Route::middleware(['auth:admin'])->group(function () {
     Route::post('/mahasiswa/edit', [MahasiswaController::class, 'edit']);
     Route::post('/mahasiswa/{id}/update', [MahasiswaController::class, 'update']);
     Route::post('/mahasiswa/{id}/delete', [MahasiswaController::class, 'delete']);
-});
 
+    // Presensi
+    Route::get('/presensi/monitoring', [PresensiController::class, 'monitoring']);
+    Route::post('/getpresensi', [PresensiController::class, 'getpresensi']);
+    Route::get('/presensi/rekap', [PresensiController::class, 'rekap']);
+    Route::post('/presensi/cetakrekap', [PresensiController::class, 'cetakrekap']);
+    Route::get('/presensi/izinsakit', [PresensiController::class, 'izinsakit']);
+    Route::post('/presensi/approveizinsakit', [PresensiController::class, 'approveizinsakit']);
+    Route::get('/presensi/{id}/batalkanizinsakit', [PresensiController::class, 'batalkanizinsakit']);
+
+    // Konfigurasi Absen
+    Route::get('/konfigurasi/lokasiabsen', [KonfigurasiController::class, 'lokasiabsen']);
+    Route::post('/konfigurasi/updatelokasi', [KonfigurasiController::class, 'updatelokasi']);
+
+    // Konfigurasi Jam Absen
+    Route::get('/konfigurasi/jamabsen', [KonfigurasiController::class, 'jamabsen']);
+    Route::post('/konfigurasi/updatejamabsen', [KonfigurasiController::class, 'updatejamabsen']);
+});
 
 Auth::routes();
 
