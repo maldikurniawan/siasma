@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Pengajuanizin;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -314,11 +315,47 @@ class PresensiController extends Controller
         return view('presensi.showact', compact('dataizin'));
     }
 
+    public function monitoring()
+    {
+        return view('presensi.monitoring');
+    }
+
+    public function getpresensi(Request $request)
+    {
+        $tanggal = $request->tanggal;
+        $presensi = DB::table('presensi')
+            ->select('presensi.*', 'name', 'npm', 'jam_masuk')
+            ->leftJoin('jam_absen', 'presensi.jam_absen_id', '=', 'jam_absen.id')
+            ->join('users', 'presensi.users_id', '=', 'users.id')
+            ->where('tgl_presensi', $tanggal)
+            ->get();
+
+        return view('presensi.getpresensi', compact('presensi'));
+    }
+
+    public function izinsakit(Request $request)
+    {
+        $query = Pengajuanizin::query();
+        $query->select('id', 'tgl_izin', 'npm', 'name', 'status', 'keterangan', 'status_approved');
+        $query->join('users', 'pengajuan_izin.users_id', '=', 'users.id');
+        if (!empty($request->tanggal)) {
+            $query->where('tgl_izin', [$request->tanggal]);
+        }
+
+        if (!empty($request->name)) {
+            $query->where('name', 'like', '%' . $request->name . '%');
+        }
+        $query->orderBy('tgl_izin', 'desc');
+        $izinsakit = $query->paginate(5);
+        $izinsakit->appends($request->all());
+        return view('presensi.izinsakit', compact('izinsakit'));
+    }
+
     public function approveizinsakit(Request $request)
     {
         $status_approved = $request->status_approved;
-        $id = $request->id_izinsakit_form;
-        $dataizin = DB::table('pengajuan_izin')->where('id', $id)->first();
+        $kode_izin = $request->id_izinsakit_form;
+        $dataizin = DB::table('pengajuan_izin')->where('kode_izin', $kode_izin)->first();
         $users_id = $dataizin->users_id;
         $tgl_izin = $dataizin->tgl_izin;
         $status = $dataizin->status;
@@ -330,32 +367,33 @@ class PresensiController extends Controller
                     'users_id' => $users_id,
                     'tgl_presensi' => $tgl_izin,
                     'jam_absen_id' => $jam_absen->id,
-                    'pengajuan_izin_id' => $id,
+                    'pengajuan_izin_id' => $kode_izin,
                     'jam_in' => "00:00:00",
                     'jam_out' => "00:00:00",
                     'status' => $status
                 ]);
             }
 
-            DB::table('pengajuan_izin')->where('id', $id)->update([
+            DB::table('pengajuan_izin')->where('kode_izin', $kode_izin)->update([
                 'status_approved' => $status_approved
             ]);
             DB::commit();
             return Redirect::back()->with(['success' => 'Data Berhasil Diupdate']);
         } catch (\Exception $e) {
             DB::rollBack();
+            // dd($e);
             return Redirect::back()->with(['warning' => 'Data Gagal Diupdate']);
         }
     }
 
-    public function batalkanizinsakit($id)
+    public function batalkanizinsakit($kode_izin)
     {
         DB::beginTransaction();
         try {
-            DB::table('pengajuan_izin')->where('id', $id)->update([
+            DB::table('pengajuan_izin')->where('kode_izin', $kode_izin)->update([
                 'status_approved' => 0
             ]);
-            DB::table('presensi')->where('pengajuan_izin_id', $id)->delete();
+            DB::table('presensi')->where('pengajuan_izin_id', $kode_izin)->delete();
             DB::commit();
             return Redirect::back()->with(['success' => 'Data Berhasil Diupdate']);
         } catch (\Throwable $e) {
@@ -817,8 +855,13 @@ class PresensiController extends Controller
 
         $query->orderBy('name');
         $rekap = $query->get();
-
         $namabulan = ["", "Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
+
+        if (isset($_POST['cetakexcel'])) {
+            $time = date("d-M-Y H:i:s");
+            header("Content-type: application/vnd-ms-excel");
+            header("Content-Disposition: attachment; filename=Rekap Presensi $time.xls");
+        }
 
         return view('presensi.cetakrekap', compact('bulan', 'tahun', 'namabulan', 'rekap', 'rangetanggal', 'jmlhari'));
     }
