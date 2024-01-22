@@ -100,7 +100,7 @@
                         $status = 'Not Found';
                     }
                 @endphp
-                <div class="card mb-2 card_izin" kode_izin="{{ $d->id }}" status_approved="{{ $d->status_approved }}"
+                <div class="card mb-2 card_izin" kode_izin="{{ $d->kode_izin }}" status_approved="{{ $d->status_approved }}"
                     data-toggle="modal" data-target="#actionSheetIconed">
                     <div class="card-body">
                         <div class="historicontent">

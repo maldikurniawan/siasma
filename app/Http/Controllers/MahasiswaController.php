@@ -78,7 +78,6 @@ class MahasiswaController extends Controller
         $email = $request->email;
         $prodi = $request->prodi;
         $no_hp = $request->no_hp;
-        $password = Hash::make('test1234');
         $old_foto = $request->old_foto;
         if ($request->hasFile('foto')) {
             $foto = $npm . "." . $request->file('foto')->getClientOriginalExtension();
@@ -93,7 +92,6 @@ class MahasiswaController extends Controller
                 'email' => $email,
                 'prodi' => $prodi,
                 'no_hp' => $no_hp,
-                'password' => $password,
                 'foto' => $foto
             ];
             $update = DB::table('users')->where('id', $id)->update($data);

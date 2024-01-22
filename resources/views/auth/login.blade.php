@@ -61,7 +61,7 @@
 
                     <div class="form-links mt-2">
                         <div>
-                            <a href="{{ url('/register') }}">Register Now</a>
+                            <a href="/panel">Login Admin</a>
                         </div>
                         <div>
                             <a href="{{ route('password.request') }}" class="text-muted">Forgot Password?</a>

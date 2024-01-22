@@ -76,12 +76,12 @@
                     </div>
                     <div class="item-menu text-center">
                         <div class="menu-icon">
-                            <a href="#" class="orange" style="font-size: 40px;">
-                                <ion-icon name="location"></ion-icon>
+                            <a href="{{ url('presensi/create') }}" class="orange" style="font-size: 40px;">
+                                <ion-icon name="camera"></ion-icon>
                             </a>
                         </div>
                         <div class="menu-name">
-                            Lokasi
+                            Presensi
                         </div>
                     </div>
 

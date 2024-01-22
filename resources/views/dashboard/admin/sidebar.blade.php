@@ -4,10 +4,11 @@
             aria-controls="sidebar-menu" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <h1 class="navbar-brand navbar-brand-autodark">
-            <a href=".">
-                <img src="{{ asset('tabler/static/logo.svg') }}" width="110" height="32" alt="Tabler"
-                    class="navbar-brand-image">
+        <h1 class="navbar-brand navbar-brand-autodark mt-2">
+            <a href="/panel/homeadmin">
+                {{-- <img src="{{ asset('tabler/static/logo.svg') }}" width="110" height="32" alt="Tabler"
+                    class="navbar-brand-image"> --}}
+                    SIASMA
             </a>
         </h1>
         <div class="navbar-nav flex-row d-lg-none">
@@ -325,6 +326,9 @@
                             <div class="dropdown-menu-column">
                                 <a class="dropdown-item" href="/konfigurasi/lokasiabsen">
                                     Lokasi Kampus
+                                </a>
+                                <a class="dropdown-item" href="/konfigurasi/jamabsen">
+                                    Jam Absen
                                 </a>
                             </div>
                         </div>

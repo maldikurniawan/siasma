@@ -88,6 +88,9 @@
                                 <span class="form-check-label">Remember me on this device</span>
                             </label>
                         </div> --}}
+                        <span>
+                            <a href="/">Login Mahasiswa</a>
+                        </span>
                         <div class="form-footer">
                             <button type="submit" class="btn btn-primary w-100">Sign in</button>
                         </div>
