@@ -20,6 +20,7 @@
     <link href="{{ asset('tabler/dist/css/tabler-payments.min.css?1684106062') }}" rel="stylesheet" />
     <link href="{{ asset('tabler/dist/css/tabler-vendors.min.css?1684106062') }}" rel="stylesheet" />
     <link href="{{ asset('tabler/dist/css/demo.min.css?1684106062') }}" rel="stylesheet" />
+    <link rel="icon" type="image/png" href="{{ asset('assets/img/unila.png') }}" sizes="32x32">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker.css" rel="stylesheet"
         type="text/css" />
     <style>
