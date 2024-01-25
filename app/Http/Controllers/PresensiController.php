@@ -267,7 +267,7 @@ class PresensiController extends Controller
 
     public function editizin($kode_izin)
     {
-        $dataizin = DB::table('pengajuan_izin')->where('id', $kode_izin)->first();
+        $dataizin = DB::table('pengajuan_izin')->where('kode_izin', $kode_izin)->first();
         return view('presensi.editizin', compact('dataizin'));
     }
 
@@ -283,7 +283,7 @@ class PresensiController extends Controller
                 'status' => $status,
                 'keterangan' => $keterangan
             ];
-            DB::table('pengajuan_izin')->where('id', $kode_izin)->update($data);
+            DB::table('pengajuan_izin')->where('kode_izin', $kode_izin)->update($data);
             return redirect('presensi/izin')->with(['success' => 'Data Berhasil Disimpan']);
         } catch (\Throwable $e) {
             return redirect('presensi/izin')->with(['success' => 'Data Gagal Disimpan']);
@@ -293,7 +293,7 @@ class PresensiController extends Controller
     public function deleteizin($kode_izin)
     {
         try {
-            DB::table('pengajuan_izin')->where('id', $kode_izin)->delete();
+            DB::table('pengajuan_izin')->where('kode_izin', $kode_izin)->delete();
             return redirect('presensi/izin')->with(['success' => 'Data Berhasil Dihapus']);
         } catch (\Throwable $e) {
             return redirect('presensi/izin')->with(['success' => 'Data Gagal Dihapus']);
@@ -311,7 +311,7 @@ class PresensiController extends Controller
 
     public function showact($kode_izin)
     {
-        $dataizin = DB::table('pengajuan_izin')->where('id', $kode_izin)->first();
+        $dataizin = DB::table('pengajuan_izin')->where('kode_izin', $kode_izin)->first();
         return view('presensi.showact', compact('dataizin'));
     }
 

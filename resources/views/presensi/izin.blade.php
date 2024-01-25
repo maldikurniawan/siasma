@@ -45,7 +45,7 @@
             @endif
         </div>
     </div>
-    <div class="row">
+    <div class="row mt-1">
         <div class="col">
             <form method="GET" action="/presensi/izin">
                 <div class="row">
@@ -186,7 +186,7 @@
                         icon: 'warning'
                     })
                 } else {
-                    $("#showact").load('/izin/' + kode_izin + '/showact')
+                    $("#showact").load('/izin/' + kode_izin + '/showact');
                 }
             });
         });
