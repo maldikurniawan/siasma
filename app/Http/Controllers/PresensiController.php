@@ -844,7 +844,7 @@ class PresensiController extends Controller
 
                 FROM presensi
                 LEFT JOIN jam_absen ON presensi.jam_absen_id = jam_absen.id
-                LEFT JOIN pengajuan_izin ON presensi.pengajuan_izin_id = pengajuan_izin.id
+                LEFT JOIN pengajuan_izin ON presensi.pengajuan_izin_id = pengajuan_izin.kode_izin
                 WHERE tgl_presensi BETWEEN '$rangetanggal[0]' AND '$sampai'
                 GROUP BY users_id
                 )presensi"),

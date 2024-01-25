@@ -54,9 +54,8 @@
                                         <div class="row">
                                             <div class="col-4">
                                                 <div class="form-group">
-                                                    <input type="text" name="name" id="name"
-                                                        value="{{ Request('name') }}" class="form-control"
-                                                        placeholder="Nama Mahasiswa">
+                                                    <input type="text" name="name" value="{{ Request('name') }}"
+                                                        class="form-control" placeholder="Nama Mahasiswa">
                                                 </div>
                                             </div>
                                             <div class="col-2">
