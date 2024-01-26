@@ -8,7 +8,7 @@
             <a href="/panel/homeadmin">
                 {{-- <img src="{{ asset('tabler/static/logo.svg') }}" width="110" height="32" alt="Tabler"
                     class="navbar-brand-image"> --}}
-                    SIASMA
+                    SIPELAN
             </a>
         </h1>
         <div class="navbar-nav flex-row d-lg-none">
