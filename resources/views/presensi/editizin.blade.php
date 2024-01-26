@@ -21,7 +21,7 @@
 @section('content')
     <div class="row" style="margin-top:70px">
         <div class="col">
-            <form method="POST" action="/izin/{{$dataizin->id}}/update" id="frmizin">
+            <form method="POST" action="/izin/{{$dataizin->kode_izin}}/update" id="frmizin">
                 @csrf
                 <div class="form-group">
                     <input type="text" id="tgl_izin" value="{{ $dataizin->tgl_izin }}" name="tgl_izin"
