@@ -1,6 +1,6 @@
 <ul class="action-button-list">
     <li>
-        <a href="/izin/{{ $dataizin->kode_izin }}/edit" class="btn btn-list text-primary">
+        <a href="/izin/{{ $dataizin->id }}/edit" class="btn btn-list text-primary">
             <span>
                 <ion-icon name="create-outline"></ion-icon>
                 Edit
@@ -21,7 +21,7 @@
 <script>
     $(function() {
         $("#deletebutton").click(function(e) {
-            $("#hapuspengajuan").attr('href', '/izin/' + '{{$dataizin->kode_izin}}/delete');
+            $("#hapuspengajuan").attr('href', '/izin/' + '{{$dataizin->id}}/delete');
         });
     });
 </script>
